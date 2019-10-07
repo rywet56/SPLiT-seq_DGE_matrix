@@ -196,9 +196,9 @@ def write_read_summary_statistics_to_txt_2(summary_list, output_directory, outpu
     ED_grand = 0
     ED_total = [0] * 6
     ED_first = [0] * 6  # every entry corresponds to number of first alignment(s) with ED = 0, 1, ... , 5
-    ED_1_match = [0] * 6
-    ED_2_matches = [0] * 6
-    ED_3_matches= [0] * 6
+    match_1 = [0] * 6
+    match_2 = [0] * 6
+    match_3 = [0] * 6
 
 
     # count number of first alginments for every ED 0 through 5
@@ -211,31 +211,38 @@ def write_read_summary_statistics_to_txt_2(summary_list, output_directory, outpu
         if entry[1][0] > 0:  # ED = 0   --> first alignment appears with ED = 0
             ED_first[0] += 1
             if entry[1][0] == 1:
-                ED_1_match[0] += 1
+                match_1[0] += 1
             elif entry[1][0] == 2:
-                # never comes here
-                ED_2_matches[0] += 1
+                match_2[0] += 1
             elif entry[1][0] == 3:
-                ED_3_matches[0] += 1
+                match_3[0] += 1
 
         elif entry[2][0] > 0:   # ED = 1    --> first alignment appears with ED = 1
             ED_first[1] += 1
             if entry[2][0] == 1:
-                ED_1_match[1] += 1
+                match_1[1] += 1
             elif entry[2][0] == 2:
-                # never comes here
-                ED_2_matches[0] += 1
+                match_2[1] += 1
             elif entry[2][0] == 3:
-                ED_3_matches[0] += 1
+                match_3[1] += 1
 
         elif entry[3][0] > 0:  # ED = 2     --> first alignment appears with ED = 2
             ED_first[2] += 1
             if entry[3][0] == 1:    # 1 aligned position with ED=2
-                ED_1_match[2] += 1
+                match_1[2] += 1
             elif entry[3][0] == 2:  # 2 aligned positions with ED=2
-                ED_2_matches[2] += 1
+                match_2[2] += 1
             elif entry[3][0] == 3:  # 3 aligned positions with ED=2
-                ED_3_matches[0] += 1
+                match_3[2] += 1
+
+        elif entry[4][0] > 0:  # ED = 3     --> first alignment appears with ED = 3
+            ED_first[3] += 1
+            if entry[3][0] == 1:    # 1 aligned position with ED=3
+                match_1[3] += 1
+            elif entry[3][0] == 2:  # 2 aligned positions with ED=3
+                match_2[3] += 1
+            elif entry[3][0] == 3:  # 3 aligned positions with ED=3
+                match_3[3] += 1
 
     handler.write("ED" + "\t" + "all" +"\t" + "1stA" + "\t" + "A:1" + "\t" + "A:2" + "\t" + "A:3" + "\n")
 
@@ -244,9 +251,9 @@ def write_read_summary_statistics_to_txt_2(summary_list, output_directory, outpu
         handler.write(str(ED) + "\t")
         handler.write(str(ED_total[ED]) + "\t")
         handler.write(str(ED_first[ED]) + "\t")
-        handler.write(str(ED_1_match[ED]) + "\t")
-        handler.write(str(ED_2_matches[ED]) + "\t")
-        handler.write(str(ED_3_matches[ED]) + "\t")
+        handler.write(str(match_1[ED]) + "\t")
+        handler.write(str(match_2[ED]) + "\t")
+        handler.write(str(match_3[ED]) + "\t")
         handler.write("\n")
 
     # write some explanations
@@ -261,7 +268,6 @@ def write_read_summary_statistics_to_txt_2(summary_list, output_directory, outpu
 
 
 def main(cmd_args):
-    print(str(cmd_args))
     path_to_reference, path_to_extracted_barcodes_txt, out_put_dir = return_cmd_args(cmd_args)
     reference_list = read_from_file(input_file = path_to_reference, file_type = "fasta")
     extracted_barcodes_list = read_from_file(input_file = path_to_extracted_barcodes_txt, file_type = "txt")

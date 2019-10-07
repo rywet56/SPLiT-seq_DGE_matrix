@@ -1,26 +1,3 @@
-from Bio import SeqIO
-
-
-# def file_to_list(path_to_file):
-#     # print(path_to_file)
-#     handler = open(path_to_file)
-#     return handler.readlines()
-#
-# def fasta_to_list(path_to_file):
-#     return remove_fasta_header(remove_newlinetag(file_to_list(path_to_file)))
-#
-# def txt_to_list(path_to_file):
-#     return remove_newlinetag(file_to_list(path_to_file))
-#
-# def fastq_read_to_list(fastq_file):
-#     read_list = []
-#
-#     for record in SeqIO.parse(fastq_file, "fastq"):
-#         read_list.append(str(record.seq))
-#
-#     return read_list
-
-
 def remove_newlinetag(some_list):
     some_list_newlineremoved = []
     for entry in some_list:
@@ -74,23 +51,26 @@ def read_from_file(*args, **kwargs):
         input_filename = kwargs["input_filename"]
         input_file = input_dir + "/" + input_filename
 
-    handler = open(input_file)
+    try:
+        handler = open(input_file)
+    except FileNotFoundError as exception:
+        print("file was not found!!")
+        print(exception)
+    else:
+        # importing txt file
+        if kwargs["file_type"] == "txt":
+            input_list = remove_newlinetag(handler.readlines())
+        # importing fasta file
+        elif kwargs["file_type"] == "fasta":
+            input_list = remove_fasta_header(remove_newlinetag(handler.readlines()))
+        # importing fastq file
+        elif kwargs["file_type"] == "fastq":
+            from Bio import SeqIO
 
-    # importing txt file
-    if kwargs["file_type"] == "txt":
-        input_list = remove_newlinetag(handler.readlines())
-    # importing fasta file
-    elif kwargs["file_type"] == "fasta":
-        input_list = remove_fasta_header(remove_newlinetag(handler.readlines()))
-    # importing fastq file
-    elif kwargs["file_type"] == "fastq":
-        from Bio import SeqIO
-
-        if kwargs["fastq_reads"]:
-            for record in SeqIO.parse(input_file, "fastq"):
-                input_list.append(str(record.seq))
-
-        # if kwargs["fastq_complete"]:
-        #     import complete fastq in form of a dictionary
+            if kwargs["fastq_reads"]:
+                for record in SeqIO.parse(input_file, "fastq"):
+                    input_list.append(str(record.seq))
+    finally:
+        handler.close()
 
     return input_list
