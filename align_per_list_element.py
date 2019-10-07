@@ -1,8 +1,6 @@
 import sys
-# from scripts.file_input_output import *
-# from scripts.utils import calculate_runtime, return_cmd_args
-from file_input_output import *
-from utils import calculate_runtime, return_cmd_args
+from tools.file_input_output import *
+from tools.utils import calculate_runtime, return_cmd_args
 """
 ####### core algorithm of alignment problem
 """
@@ -263,6 +261,7 @@ def write_read_summary_statistics_to_txt_2(summary_list, output_directory, outpu
 
 
 def main(cmd_args):
+    print(str(cmd_args))
     path_to_reference, path_to_extracted_barcodes_txt, out_put_dir = return_cmd_args(cmd_args)
     reference_list = read_from_file(input_file = path_to_reference, file_type = "fasta")
     extracted_barcodes_list = read_from_file(input_file = path_to_extracted_barcodes_txt, file_type = "txt")
