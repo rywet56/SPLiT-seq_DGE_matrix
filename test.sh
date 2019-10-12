@@ -27,7 +27,7 @@ meta_data="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generatio
 scripts=$(pwd)
 
 bc_ref=$meta_data/barcode_reference/barcode_combinations.fasta
-bc_reads=$meta_data/barcode_reads/extracted_barcodes_500.txt
+bc_reads=$meta_data/barcode_reads/extracted_barcodes_1000000.txt
 out_dir=$meta_data/results
 
 python3 $scripts/align_per_list_element.py \

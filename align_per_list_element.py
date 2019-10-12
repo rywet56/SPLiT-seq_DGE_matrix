@@ -42,7 +42,7 @@ def align_string_per_list_element_3(bc_list, query):
         for base_no in range(len(query) - 1):
             if query[base_no] != bc_list[bc_comb_no][base_no]:
                 edit_distance += 1
-            if edit_distance >= 6:
+            if edit_distance >= 1:
                 if base_no < 8:
                     bc_comb_no += 9215  # +1 is added after breaking out
                     break
@@ -73,7 +73,7 @@ def align_list_entries(reference_list, query_list, output_directory, output_file
         query_align_pos_list.append(align_string_per_list_element_3(reference_list, query))
 
     write_read_summary_to_txt_enduser(query_align_pos_list, output_directory, output_file_name)
-    write_read_summary_statistics_to_txt_2(query_align_pos_list, output_directory, output_file_name)
+    # write_read_summary_statistics_to_txt_2(query_align_pos_list, output_directory, output_file_name)
     return query_align_pos_list
 
 
@@ -107,7 +107,7 @@ def get_read_summary(edit_distance_dic, query):
 
 
 def write_read_summary_to_txt_enduser(summary_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + ".txt", "w")
+    handler = open(output_directory + "/" + output_file_name + "_enduser.txt", "w")
 
     for i in range(len(summary_list)):
         handler.write(str(summary_list[i][0]))  # query seqeunce
@@ -142,7 +142,7 @@ def write_read_summary_to_txt_enduser(summary_list, output_directory, output_fil
 
 
 def write_read_summary_to_txt_internal(summary_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + ".txt", "w")
+    handler = open(output_directory + "/" + output_file_name + "_internal.txt", "w")
 
     for i in range(len(summary_list)):  # go through summaries of all aligned reads
         handler.write(str(summary_list[i][0]))  # query sequence
