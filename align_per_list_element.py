@@ -1,6 +1,7 @@
 import sys
 from tools.file_input_output import *
 from tools.utils import calculate_runtime, return_cmd_args
+from ReadSummary import GetReadSummary
 """
 ####### core algorithm of alignment problem
 """
@@ -56,9 +57,8 @@ def align_string_per_list_element_3(bc_list, query):
             break  # only valid if edit distance among all BC combinations is big enough
         bc_comb_no += 1
 
-    # best_postition = min(edit_distance_dic, key=edit_distance_dic.get)
-    # return [best_postition, edit_distance_dic[best_postition]]
-    return get_read_summary(edit_distance_dic, query)
+    return get_read_summary(edit_distance_dic, query)  # returns a list containing alignment information
+    # return GetReadSummary(edit_distance_dic, query)  # returns a GetReadSummary object containing alignment information
 
 
 """
@@ -72,10 +72,12 @@ def align_list_entries(reference_list, query_list, output_directory, output_file
     for query in query_list:
         query_align_pos_list.append(align_string_per_list_element_3(reference_list, query))
 
-    write_read_summary_to_txt_enduser(query_align_pos_list, output_directory, output_file_name)
-    # write_read_summary_statistics_to_txt_2(query_align_pos_list, output_directory, output_file_name)
-    return query_align_pos_list
-
+    # uses OOP version of alignment results
+    # write_read_summary_to_txt_internal_2(query_align_pos_list, output_directory, output_file_name)
+    # uses non-OOP version of alignment results
+    write_read_summary_to_txt_internal(query_align_pos_list, output_directory, output_file_name)
+    # write_read_summary_to_txt_enduser(query_align_pos_list, output_directory, output_file_name)
+    # write_read_summary_statistics_to_txt(query_align_pos_list, output_directory, output_file_name)
 
 """
 ####### calculate and output alignment summaries
@@ -162,7 +164,41 @@ def write_read_summary_to_txt_internal(summary_list, output_directory, output_fi
     handler.close()
 
 
-def write_read_summary_statistics_to_txt(summary_list, output_directory, output_file_name):
+def write_read_summary_to_txt_internal_2(summary_list, output_directory, output_file_name):
+    """
+    Uses a list of GetReadSummary object to built file containing alignment summary
+    :param summary_list:
+    :param output_directory:
+    :param output_file_name:
+    :return:
+    """
+    handler = open(output_directory + "/" + output_file_name + "_internal.txt", "w")
+
+    for i in range(len(summary_list)):  # go through summaries of all aligned reads
+        handler.write(str(summary_list[i].sequence))  # query sequence
+        handler.write("\n")
+
+        for ED in summary_list[i].ED_list:
+            handler.write(str(len(ED)))  # amount of reads with ED = n
+            handler.write("\t")
+
+            for position in ED:  # positions to which ED = 0
+                handler.write(str(position))
+                handler.write("\t")
+
+            handler.write("\n")
+
+    handler.close()
+
+
+def write_read_summary_statistics_to_txt_limited(summary_list, output_directory, output_file_name):
+    """
+    makes a very limited and not very informative overall summary file of alignment statistics
+    :param summary_list:
+    :param output_directory:
+    :param output_file_name:
+    :return:
+    """
     handler = open(output_directory + "/" + output_file_name + "_statistics" + ".txt", "w")
 
     ED0 = 0
@@ -190,7 +226,14 @@ def write_read_summary_statistics_to_txt(summary_list, output_directory, output_
     handler.close()
 
 
-def write_read_summary_statistics_to_txt_2(summary_list, output_directory, output_file_name):
+def write_read_summary_statistics_to_txt(summary_list, output_directory, output_file_name):
+    """
+    creates a very detailed and informative overall summary file of alignment statistics
+    :param summary_list:
+    :param output_directory:
+    :param output_file_name:
+    :return:
+    """
     handler = open(output_directory + "/" + output_file_name + "_statistics" + ".txt", "w")
 
     ED_grand = 0
