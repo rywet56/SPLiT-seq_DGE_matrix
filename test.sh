@@ -23,18 +23,32 @@
 
 # -------------------------------------------------------------- #
 
+#meta_data="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata"
+#scripts=$(pwd)
+#
+#bc_ref=$meta_data/barcode_reference/barcode_combinations.fasta
+#bc_reads=$meta_data/barcode_reads/extracted_barcodes_1000000.txt
+#out_dir=$meta_data/results
+#
+#python3 $scripts/align_per_list_element.py \
+#    --bc_reference $bc_ref \
+#    --bc_reads $bc_reads \
+#    --out_dir $out_dir
+
+# -------------------------------------------------------------- #
+
 meta_data="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata"
 scripts=$(pwd)
 
 bc_ref=$meta_data/barcode_reference/barcode_combinations.fasta
 bc_reads=$meta_data/barcode_reads/extracted_barcodes_1000000.txt
+gen_reads=$meta_data/barcode_reads/test_1000000.fastq
 out_dir=$meta_data/results
 
-python3 $scripts/align_per_list_element.py \
+python3 $scripts/filter_barcodes.py \
     --bc_reference $bc_ref \
     --bc_reads $bc_reads \
+    --gen_reads $gen_reads \
     --out_dir $out_dir
 
 # -------------------------------------------------------------- #
-
-

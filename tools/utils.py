@@ -8,7 +8,7 @@ def calculate_runtime(func):
         result = func(*args, **kwargs)
         end = time.time()
 
-        out_put_dir = args[2]
+        out_put_dir = args[3]
         output_file_name = 'runtime_analyses'
         handler = open(out_put_dir + "/" + output_file_name + ".txt", "w")
         handler.write("the runtime was: " + str(end-start) + " seconds")
@@ -20,10 +20,11 @@ def calculate_runtime(func):
 
 
 def return_cmd_args(args):
-    opts_and_args, args = getopt.getopt(args, "r:b:o:", ["bc_reference=", "bc_reads=", "out_dir="])
+    opts_and_args, args = getopt.getopt(args, "r:b:g:o:", ["bc_reference=", "bc_reads=", "gen_reads=", "out_dir="])
 
     bc_reference = ''
     bc_reads = ''
+    genomic_reads = ''
     out_dir = ''
 
     for opt, arg in opts_and_args:
@@ -31,8 +32,10 @@ def return_cmd_args(args):
             bc_reference = arg
         elif opt in ("-b", "--bc_reads"):
             bc_reads = arg
+        elif opt in ("-g", "--gen_reads"):
+            genomic_reads = arg
         elif opt in ("-o", "--out_dir"):
             out_dir = arg
 
-    return bc_reference, bc_reads, out_dir
+    return bc_reference, bc_reads, genomic_reads, out_dir
 
