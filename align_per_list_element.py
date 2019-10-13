@@ -67,7 +67,7 @@ def align_string_per_list_element_3(bc_list, query):
 
 
 @calculate_runtime
-def align_list_entries(reference_list, query_list, output_directory, output_file_name):
+def align_list_entries(reference_list, query_list, output_directory, output_file_name, **kwargs):
     query_align_pos_list = []
     for query in query_list:
         query_align_pos_list.append(align_string_per_list_element_3(reference_list, query))
@@ -314,7 +314,7 @@ def main(cmd_args):
     path_to_reference, path_to_extracted_barcodes_txt, out_put_dir = return_cmd_args(cmd_args)
     reference_list = read_from_file(input_file = path_to_reference, file_type = "fasta")
     extracted_barcodes_list = read_from_file(input_file = path_to_extracted_barcodes_txt, file_type = "txt")
-    align_list_entries(reference_list, extracted_barcodes_list, out_put_dir, "alignment_summary")
+    align_list_entries(reference_list, extracted_barcodes_list, out_put_dir, "alignment_summary", out_dir=out_put_dir)
 
 
 if __name__ == "__main__":

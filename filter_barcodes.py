@@ -37,7 +37,7 @@ def align_string_per_list_element(bc_list, query):
 
 
 @calculate_runtime
-def align_list_entries(reference_list, query_list, genomic_reads, output_directory):
+def align_list_entries(reference_list, query_list, genomic_reads, output_directory, **kwargs):
     query_ed_list = []
     for query in query_list:
         query_ed_list.append(align_string_per_list_element(reference_list, query))
@@ -59,22 +59,12 @@ def filtered_reads_to_files(query_ed_list, genomic_reads, output_directory):
     write_to_txt(new_bc_read_list, output_directory, "filtered_bc_reads")
 
 
-
-    # bc_reads = open(output_directory + "/" + "filtered_bc_reads" + ".txt", "w")
-    #
-    # for bc_read in query_ed_list:
-    #     if bc_read[1]:
-    #         bc_reads.write(bc_read[0] + "\n")
-    #
-    # bc_reads.close()
-
-
 def main(cmd_args):
     path_to_reference, path_to_extracted_barcodes_txt, path_to_genomic_reads, out_put_dir = return_cmd_args(cmd_args)
     reference_list = read_from_file(input_file=path_to_reference, file_type="fasta")
     extracted_barcodes_list = read_from_file(input_file=path_to_extracted_barcodes_txt, file_type="txt")
     genomic_reads_list = read_from_file(input_file=path_to_genomic_reads, file_type="fastq_all")
-    align_list_entries(reference_list, extracted_barcodes_list, genomic_reads_list, out_put_dir)
+    align_list_entries(reference_list, extracted_barcodes_list, genomic_reads_list, out_put_dir, out_dir=out_put_dir)
 
 
 if __name__ == "__main__":

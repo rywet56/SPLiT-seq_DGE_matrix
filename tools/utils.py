@@ -8,7 +8,7 @@ def calculate_runtime(func):
         result = func(*args, **kwargs)
         end = time.time()
 
-        out_put_dir = args[3]
+        out_put_dir = kwargs['out_dir']
         output_file_name = 'runtime_analyses'
         handler = open(out_put_dir + "/" + output_file_name + ".txt", "w")
         handler.write("the runtime was: " + str(end-start) + " seconds")
