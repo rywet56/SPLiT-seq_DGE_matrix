@@ -41,8 +41,8 @@ python3 $scripts/align_per_list_element.py \
 #scripts=$(pwd)
 #
 #bc_ref=$meta_data/barcode_reference/barcode_combinations.fasta
-#bc_reads=$meta_data/barcode_reads/extracted_barcodes_1000000.txt
-#gen_reads=$meta_data/barcode_reads/test_1000000.fastq
+#bc_reads=$meta_data/barcode_reads/extracted_barcodes_500.txt
+#gen_reads=$meta_data/barcode_reads/test_500.fastq
 #out_dir=$meta_data/results
 #
 #python3 $scripts/filter_barcodes.py \

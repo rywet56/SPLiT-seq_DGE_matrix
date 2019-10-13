@@ -1,5 +1,4 @@
-from tools.utils import calculate_runtime, return_cmd_args
-import sys
+from tools.utils import calculate_runtime, return_cmd_args, get_cmd_args
 from tools.file_input_output import *
 
 
@@ -60,7 +59,12 @@ def filtered_reads_to_files(query_ed_list, genomic_reads, output_directory):
 
 
 def main(cmd_args):
-    path_to_reference, path_to_extracted_barcodes_txt, path_to_genomic_reads, out_put_dir = return_cmd_args(cmd_args)
+    # path_to_reference, path_to_extracted_barcodes_txt, path_to_genomic_reads, out_put_dir = return_cmd_args(cmd_args)
+    path_to_reference = cmd_args["bc_reference"]
+    path_to_extracted_barcodes_txt = cmd_args["bc_reads"]
+    path_to_genomic_reads = cmd_args["gen_reads"]
+    out_put_dir = cmd_args["out_dir"]
+
     reference_list = read_from_file(input_file=path_to_reference, file_type="fasta")
     extracted_barcodes_list = read_from_file(input_file=path_to_extracted_barcodes_txt, file_type="txt")
     genomic_reads_list = read_from_file(input_file=path_to_genomic_reads, file_type="fastq_all")
@@ -68,4 +72,4 @@ def main(cmd_args):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(get_cmd_args())

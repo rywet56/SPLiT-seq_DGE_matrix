@@ -1,5 +1,6 @@
 import getopt
 import time
+import argparse
 
 
 def calculate_runtime(func):
@@ -17,6 +18,18 @@ def calculate_runtime(func):
         return result
 
     return wrapper
+
+
+def get_cmd_args():
+    parser = argparse.ArgumentParser(prog='PROG', description='filtering bc_reads')
+    parser.add_argument('--bc_reference')
+    parser.add_argument('--bc_reads')
+    parser.add_argument('--gen_reads')
+    parser.add_argument('--out_dir', help='output direcotry')
+    args = parser.parse_args()
+    # args_dic = vars(args)
+
+    return vars(args)
 
 
 def return_cmd_args(args):
