@@ -1,4 +1,4 @@
-class GetReadSummary:
+class ReadSummary:
 
     def __init__(self, ED_dic, query):
         self.ED0 = []

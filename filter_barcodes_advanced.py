@@ -1,39 +1,44 @@
-import sys
-from tools.file_input_output import *
 from tools.utils import calculate_runtime, return_cmd_args, get_cmd_args
-from Reads import ReadSummary
-"""
-####### core algorithm of alignment problem
-"""
+from tools.file_input_output import *
 
 
-def align_per_list_element(bc_list, query):
-    edit_distance_dic = {}
+def align_string_per_list_element(bc_list, query):
+    query_tuple = ()
     bc_comb_no = 0
-    for bc_comb in bc_list:
+    no_of_barcode_combs = len(bc_list)
+    match_found = False
+
+    while bc_comb_no < no_of_barcode_combs:
         edit_distance = 0
         for base_no in range(len(query) - 1):
-            if query[base_no] != bc_comb[base_no]:
+            if query[base_no] != bc_list[bc_comb_no][base_no]:
                 edit_distance += 1
-        edit_distance_dic[bc_comb_no] = edit_distance
-        bc_comb_no += 1
+            if edit_distance >= 2:
+                if base_no < 8:
+                    bc_comb_no += 9215  # +1 is added after breaking out
+                    break
+                elif base_no < 16:
+                    bc_comb_no += 95  # +1 is added after breaking out
+                    break
+                break
+
         if edit_distance == 0:
-            print("hey")
-
-    return edit_distance_dic[min(edit_distance_dic)]
-
-
-def align_per_list_element_2(bc_list, query):
-    edit_distance_dic = {}
-    bc_comb_no = 0
-    for bc_comb in bc_list:
-        edit_distance = sum(c1 != c2 for c1, c2 in zip(query, bc_comb))
-        edit_distance_dic[bc_comb_no] = edit_distance
+            match_found = True
+            break
+        elif edit_distance == 1:  # checks again to stop alg from searching if ED was 0
+            match_found = True
+            break
         bc_comb_no += 1
-    return edit_distance_dic[min(edit_distance_dic)]
+
+    if match_found:
+        query_tuple = (query, 1)
+    else:
+        query_tuple = (query, 0)
+
+    return query_tuple
 
 
-def align_string_per_list_element_3(bc_list, query):
+def align_string_per_list_element_comprehensive(bc_list, query):
     edit_distance_dic = {}
     bc_comb_no = 0
     no_of_barcode_combs = len(bc_list)
@@ -43,7 +48,7 @@ def align_string_per_list_element_3(bc_list, query):
         for base_no in range(len(query) - 1):
             if query[base_no] != bc_list[bc_comb_no][base_no]:
                 edit_distance += 1
-            if edit_distance >= 1:
+            if edit_distance >= 6:
                 if base_no < 8:
                     bc_comb_no += 9215  # +1 is added after breaking out
                     break
@@ -58,30 +63,72 @@ def align_string_per_list_element_3(bc_list, query):
         bc_comb_no += 1
 
     return get_read_summary(edit_distance_dic, query)  # returns a list containing alignment information
-    # return GetReadSummary(edit_distance_dic, query)  # returns a GetReadSummary object containing alignment information
-
-
-"""
-####### alignment applied to all barcode_reads
-"""
+    # return ReadSummary(edit_distance_dic, query)  # returns a GetReadSummary object containing alignment information
 
 
 @calculate_runtime
-def align_list_entries(reference_list, query_list, output_directory, output_file_name, **kwargs):
-    query_align_pos_list = []
-    for query in query_list:
-        query_align_pos_list.append(align_string_per_list_element_3(reference_list, query))
+def align_list_entries(reference_list, query_list, genomic_reads, out_dir, mode="simple"):
+    if mode == "simple":
+        query_ed_list = []
+        for query in query_list:
+            query_ed_list.append((align_string_per_list_element(reference_list, query[0]), query[1], query[2], query[3]))
+        # structure of quere_ed_list
+        # [ ( (bc, True/False), bc_qual, umi, umi_qual ), (), ...]
+        filtered_reads_to_files(query_ed_list, genomic_reads, out_dir)
+    elif mode == "comprehensive":
+        query_align_pos_list = []
+        for query in query_list:
+            query_align_pos_list.append(align_string_per_list_element_comprehensive(reference_list, query[0]))
 
-    # uses OOP version of alignment results
-    # write_read_summary_to_txt_internal_2(query_align_pos_list, output_directory, output_file_name)
-    # uses non-OOP version of alignment results
-    write_read_summary_to_txt_internal(query_align_pos_list, output_directory, output_file_name)
-    # write_read_summary_to_txt_enduser(query_align_pos_list, output_directory, output_file_name)
-    # write_read_summary_statistics_to_txt(query_align_pos_list, output_directory, output_file_name)
+        write_read_summary_to_txt_enduser(query_align_pos_list, out_dir, "alignment_summary")
+        write_read_summary_statistics_to_txt(query_align_pos_list, out_dir, "alignment_summary")
 
-"""
-####### calculate and output alignment summaries
-"""
+
+def filtered_reads_to_files(query_ed_list, genomic_reads, output_directory):
+
+    new_gen_read_list = []
+    new_bc_read_list = []
+
+    for pos in range(len(query_ed_list)):
+        num_low_qual_base_umi = get_number_of_low_quality_bases(query_ed_list[pos][3])
+        print(num_low_qual_base_umi)
+        umi_ok = num_low_qual_base_umi < 2
+        # umi_ok = True
+        bc_ok = query_ed_list[pos][0][1]
+
+        if umi_ok and bc_ok:
+            new_gen_read_list.append(genomic_reads[pos])
+            new_bc_read_list.append(query_ed_list[pos][0][0])
+
+    write_to_fastq(new_gen_read_list, output_directory, "filtered_genomic_reads")
+    write_to_txt(new_bc_read_list, output_directory, "filtered_bc_reads")
+
+
+def get_bcs_umis(path_to_bc_reads):
+    """
+    reads in the bc_read.fastq file, extracts the 3 BC's and the UMI, lastly combined the
+    3 BC's to one overal cellular BC
+    :return: [(barcode_seq, qual_score, umi_seq, umi_score),(),...]
+    """
+    bc_reads_list = read_from_file(input_file=path_to_bc_reads, file_type="fastq_all")
+    bc_umi_list = []
+    for read in bc_reads_list:
+        bc = read[1][10:18] + read[1][48:56] + read[1][86:94]
+        bc_qual = read[2][10:18] + read[2][48:56] + read[2][86:94]
+        umi = read[1][0:10]
+        umi_qual = read[2][0:10]
+        bc_umi_list.append((bc, bc_qual, umi, umi_qual))
+
+    return bc_umi_list
+
+
+def get_number_of_low_quality_bases(qual_score_list, threshold=10):
+    number_low_quality_bases = 0
+    for score in qual_score_list:
+        if score <= threshold:
+            number_low_quality_bases += 1
+
+    return number_low_quality_bases
 
 
 def get_read_summary(edit_distance_dic, query):
@@ -140,89 +187,6 @@ def write_read_summary_to_txt_enduser(summary_list, output_directory, output_fil
         handler.write("\n")
         handler.write("-------------------------------------")
         handler.write("\n")
-    handler.close()
-
-
-def write_read_summary_to_txt_internal(summary_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + "_internal.txt", "w")
-
-    for i in range(len(summary_list)):  # go through summaries of all aligned reads
-        handler.write(str(summary_list[i][0]))  # query sequence
-        handler.write("\n")
-
-        for ED in range(1, len(summary_list[i])):
-            # print("edit distance: " + str(edit_distance))
-            handler.write(str(summary_list[i][ED][0]))  # amount of reads with ED = n
-            handler.write("\t")
-
-            for position in summary_list[i][ED][1]:  # positions to which ED = 0
-                handler.write(str(position))
-                handler.write("\t")
-
-            handler.write("\n")
-
-    handler.close()
-
-
-def write_read_summary_to_txt_internal_2(summary_list, output_directory, output_file_name):
-    """
-    Uses a list of GetReadSummary object to built file containing alignment summary
-    :param summary_list:
-    :param output_directory:
-    :param output_file_name:
-    :return:
-    """
-    handler = open(output_directory + "/" + output_file_name + "_internal.txt", "w")
-
-    for i in range(len(summary_list)):  # go through summaries of all aligned reads
-        handler.write(str(summary_list[i].sequence))  # query sequence
-        handler.write("\n")
-
-        for ED in summary_list[i].ED_list:
-            handler.write(str(len(ED)))  # amount of reads with ED = n
-            handler.write("\t")
-
-            for position in ED:  # positions to which ED = 0
-                handler.write(str(position))
-                handler.write("\t")
-
-            handler.write("\n")
-
-    handler.close()
-
-
-def write_read_summary_statistics_to_txt_limited(summary_list, output_directory, output_file_name):
-    """
-    makes a very limited and not very informative overall summary file of alignment statistics
-    :param summary_list:
-    :param output_directory:
-    :param output_file_name:
-    :return:
-    """
-    handler = open(output_directory + "/" + output_file_name + "_statistics" + ".txt", "w")
-
-    ED0 = 0
-    ED1 = 0
-    ED2 = 0
-    ED3 = 0
-    ED4 = 0
-    ED5 = 0
-
-    for entry in summary_list:
-        ED0 += entry[1][0]
-        ED1 += entry[2][0]
-        ED2 += entry[3][0]
-        ED3 += entry[4][0]
-        ED4 += entry[5][0]
-        ED5 += entry[6][0]
-
-    handler.write("ED0" + "\t" + str(ED0) + "\n")
-    handler.write("ED1" + "\t" + str(ED1) + "\n")
-    handler.write("ED2" + "\t" + str(ED2) + "\n")
-    handler.write("ED3" + "\t" + str(ED3) + "\n")
-    handler.write("ED4" + "\t" + str(ED4) + "\n")
-    handler.write("ED5" + "\t" + str(ED5) + "\n")
-
     handler.close()
 
 
@@ -311,37 +275,19 @@ def write_read_summary_statistics_to_txt(summary_list, output_directory, output_
 
 
 def main(cmd_args):
-    # path_to_reference, path_to_extracted_barcodes_txt, out_put_dir = return_cmd_args(cmd_args)
     path_to_reference = cmd_args["bc_reference"]
-    path_to_extracted_barcodes_txt = cmd_args["bc_reads"]
+    path_to_barcode_reads = cmd_args["bc_reads"]
+    # path_to_extracted_barcodes_txt = cmd_args["bc_reads"]
+    path_to_genomic_reads = cmd_args["gen_reads"]
     out_put_dir = cmd_args["out_dir"]
-    reference_list = read_from_file(input_file = path_to_reference, file_type = "fasta")
-    extracted_barcodes_list = read_from_file(input_file = path_to_extracted_barcodes_txt, file_type = "txt")
-    align_list_entries(reference_list, extracted_barcodes_list, out_put_dir, "alignment_summary", out_dir=out_put_dir)
+
+    reference_list = read_from_file(input_file=path_to_reference, file_type="txt")
+    barcode_reads_list = get_bcs_umis(path_to_barcode_reads)
+    # extracted_barcodes_list = read_from_file(input_file=path_to_extracted_barcodes_txt, file_type="txt")
+    genomic_reads_list = read_from_file(input_file=path_to_genomic_reads, file_type="fastq_all")
+
+    align_list_entries(reference_list, barcode_reads_list, genomic_reads_list, out_dir=out_put_dir, mode="simple")
 
 
 if __name__ == "__main__":
     main(get_cmd_args())
-
-
-########################################
-####### TESTS ##########################
-########################################
-
-
-# home_dir = '/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/barcode_correction/barcode_correction_pseudo_alignment'
-# path_to_reference = home_dir + '/reference/barcode_combinations.fasta'
-# # # path_to_fastq = '/Users/manuel/Downloads/test_1000000.fastq'
-# out_put_dir = home_dir + '/results'
-# # # extract_barcodes_to_txt(path_to_fastq, out_put_dir, "extracted_barcodes")
-# path_to_extracted_barcodes_txt = home_dir + '/barcode_reads/extracted_barcodes_500.txt'
-# #
-# reference_list = fasta_to_list(path_to_reference)
-# extracted_barcodes_list = txt_to_list(path_to_extracted_barcodes_txt)
-# #
-#
-# # print(sys.executable)
-#
-# align_list_entries(reference_list, extracted_barcodes_list, out_put_dir, "alignment_summary")
-#
-# # main([path_to_reference, path_to_extracted_barcodes_txt, out_put_dir])
