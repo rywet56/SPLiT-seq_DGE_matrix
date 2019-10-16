@@ -21,11 +21,18 @@ def calculate_runtime(func):
 
 
 def get_cmd_args():
+    """
+    accepts a list of cmd arguments and interprets them.
+    the input can be any combinateion of possible flags (see the flags added in add_argument)
+    :return:
+    """
     parser = argparse.ArgumentParser(prog='PROG', description='filtering bc_reads')
     parser.add_argument('--bc_reference')
     parser.add_argument('--bc_reads')
     parser.add_argument('--gen_reads')
+    parser.add_argument('--in_dir')
     parser.add_argument('--out_dir', help='output direcotry')
+    parser.add_argument('--file_name')
     args = parser.parse_args()
     # args_dic = vars(args)
 
@@ -52,3 +59,14 @@ def return_cmd_args(args):
 
     return bc_reference, bc_reads, genomic_reads, out_dir
 
+
+def QSanger_to_Phred33(score_list):
+    """
+    expects a list of scores in QSanger format and converts to Phred33 score
+    :param score_list: a list of scores in QSanger format
+    :return: a list of QSanger scores encoded in ASCII
+    """
+    Phred33_list = []
+    for score in score_list:
+        Phred33_list.append(chr(round(score) + 33))
+    return Phred33_list

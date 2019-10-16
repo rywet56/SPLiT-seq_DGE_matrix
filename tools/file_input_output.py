@@ -20,10 +20,6 @@ def extract_barcodes_to_txt(fastq_file, output_directory, output_file_name):
     handler.close()
 
 
-def write_to_file(*args, **kwargs):
-    return
-
-
 def write_to_txt(input_list, output_directory, output_file_name):
     handler = open(output_directory + "/" + output_file_name + ".txt", "w")
     for read in input_list:
@@ -34,10 +30,10 @@ def write_to_txt(input_list, output_directory, output_file_name):
 def write_to_fastq(fastq_list, output_directory, output_file_name):
     handler = open(output_directory + "/" + output_file_name + ".fastq", "w")
     for read in fastq_list:
-        handler.write(read[0] + "\n")
+        handler.write("@" + read[0] + "\n")
         handler.write(read[1] + "\n")
         handler.write("+\n")
-        handler.write(', '.join(str(e) for e in read[2]) + "\n")
+        handler.write(''.join(str(e) for e in read[2]) + "\n")
     handler.close()
 
 
@@ -83,11 +79,6 @@ def read_from_file(*args, **kwargs):
         # importing fastq file
         elif kwargs["file_type"] == "fastq_all":
             from Bio import SeqIO
-
-            # if kwargs["fastq_reads"]:
-            #     for record in SeqIO.parse(input_file, "fastq"):
-            #         input_list.append(str(record.seq))
-            # elif kwargs["fastq_all"]:
 
             for record in SeqIO.parse(input_file, "fastq"):
                 read_name = str(record.description)

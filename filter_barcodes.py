@@ -65,7 +65,7 @@ def main(cmd_args):
     path_to_genomic_reads = cmd_args["gen_reads"]
     out_put_dir = cmd_args["out_dir"]
 
-    reference_list = read_from_file(input_file=path_to_reference, file_type="fasta")
+    reference_list = read_from_file(input_file=path_to_reference, file_type="txt")
     extracted_barcodes_list = read_from_file(input_file=path_to_extracted_barcodes_txt, file_type="txt")
     genomic_reads_list = read_from_file(input_file=path_to_genomic_reads, file_type="fastq_all")
     align_list_entries(reference_list, extracted_barcodes_list, genomic_reads_list, out_put_dir, out_dir=out_put_dir)

@@ -2,6 +2,9 @@ import os
 import sys
 import getopt
 
+from tools.utils import get_cmd_args
+
+
 def txt_to_list(input_file_destination):
     handler = open(input_file_destination)
     txt_list = handler.readlines()
@@ -75,12 +78,16 @@ def return_cmd_args(args):
 
     return indir, outdir, outfilename
 
+
 def main(cmd_args):
-    inp, outp, name = return_cmd_args(cmd_args)
-    barcodes_txt_to_FASTA(inp, outp, name)
+    in_dir = cmd_args["in_dir"]
+    out_dir = cmd_args["out_dir"]
+    name = cmd_args["file_name"]
+    barcodes_txt_to_FASTA(in_dir, out_dir, name)
+
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(get_cmd_args())
 
 ##########################
 # HOW TO USE THIS SCRIPT #

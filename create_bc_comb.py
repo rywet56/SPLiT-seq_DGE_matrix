@@ -22,6 +22,7 @@ def extract_barcodes(some_list, UMI=False):
             extracted_barcodes.append(barcode[15:23])
     return extracted_barcodes
 
+
 def make_barcode_combinations(bc1_path, bc2_path, bc3_path):
     bc1_cleaned = remove_fasta_header(remove_newlinetag(txt_to_list(bc1_path)))
     bc1_extracted = extract_barcodes(bc1_cleaned)
@@ -41,21 +42,30 @@ def make_barcode_combinations(bc1_path, bc2_path, bc3_path):
 
     return combined_bcs
 
-def nt_sequence_list_to_fasta(nt_sequence_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + ".fasta", "w")
-    handler.write(">" + output_file_name)
-    handler.write("\n")
 
-    for entry in nt_sequence_list:
-        handler.write(entry)
-        handler.write("\n")
+def nt_sequence_list_to_file(nt_sequence_list, output_directory, output_file_name, type):
+    handler = open(output_directory + "/" + output_file_name + "." + type, "w")
+    comb_num = 1
+
+    if type == "fasta":
+        for entry in nt_sequence_list:
+            handler.write(">comb_" + str(comb_num))
+            handler.write("\n")
+            handler.write(entry)
+            handler.write("\n")
+            comb_num += 1
+    elif type == "txt":
+        for entry in nt_sequence_list:
+            handler.write(entry)
+            handler.write("\n")
+            comb_num += 1
     handler.close()
 
 
-bc1_path = "/Users/manuel/OneDrive/single_cell_sequencing/PROJECTS/SPLiT-seq/computational_analysis/SPLiT-seq_suite/scripts/r1barcodes.fasta"
-bc2_path = "/Users/manuel/OneDrive/single_cell_sequencing/PROJECTS/SPLiT-seq/computational_analysis/SPLiT-seq_suite/scripts/r2barcodes.fasta"
-bc3_path = "/Users/manuel/OneDrive/single_cell_sequencing/PROJECTS/SPLiT-seq/computational_analysis/SPLiT-seq_suite/scripts/r3barcodes.fasta"
-output_directory = "/Users/manuel/OneDrive/single_cell_sequencing/PROJECTS/SPLiT-seq/computational_analysis/SPLiT-seq_suite/scripts"
+bc1_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r1barcodes.fasta"
+bc2_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r2barcodes.fasta"
+bc3_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r3barcodes.fasta"
+output_directory = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcode_reference"
 
 barcode_combinations = make_barcode_combinations(bc1_path, bc2_path, bc3_path)
-nt_sequence_list_to_fasta(barcode_combinations, output_directory, "barcode_combinations")
+nt_sequence_list_to_file(barcode_combinations, output_directory, "barcode_combinations", "txt")
