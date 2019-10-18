@@ -289,6 +289,11 @@ def main(cmd_args):
 
     align_list_entries(reference_list, barcode_reads_list, genomic_reads_list, out_dir=out_put_dir, mode="simple")
 
+    import os
+    import psutil
+    process = psutil.Process(os.getpid())
+    print(process.memory_info().rss)  # in bytes 
+
 
 if __name__ == "__main__":
     main(get_cmd_args())
