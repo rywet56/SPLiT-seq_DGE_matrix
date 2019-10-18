@@ -1,3 +1,6 @@
+from tools.utils import QSanger_to_Phred33
+
+
 def remove_newlinetag(some_list):
     some_list_newlineremoved = []
     for entry in some_list:
@@ -33,7 +36,8 @@ def write_to_fastq(fastq_list, output_directory, output_file_name):
         handler.write("@" + read[0] + "\n")
         handler.write(read[1] + "\n")
         handler.write("+\n")
-        handler.write(''.join(str(e) for e in read[2]) + "\n")
+        phred33_list = QSanger_to_Phred33(read[2])
+        handler.write(''.join(str(e) for e in phred33_list) + "\n")
     handler.close()
 
 

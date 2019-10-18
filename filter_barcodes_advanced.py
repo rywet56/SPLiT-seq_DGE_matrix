@@ -72,6 +72,7 @@ def align_list_entries(reference_list, query_list, genomic_reads, out_dir, mode=
         query_ed_list = []
         for query in query_list:
             query_ed_list.append((align_string_per_list_element(reference_list, query[0]), query[1], query[2], query[3]))
+        print("reads have been aligned")
         # structure of quere_ed_list
         # [ ( (bc, True/False), bc_qual, umi, umi_qual ), (), ...]
         filtered_reads_to_files(query_ed_list, genomic_reads, out_dir)
@@ -82,6 +83,7 @@ def align_list_entries(reference_list, query_list, genomic_reads, out_dir, mode=
 
         write_read_summary_to_txt_enduser(query_align_pos_list, out_dir, "alignment_summary")
         write_read_summary_statistics_to_txt(query_align_pos_list, out_dir, "alignment_summary")
+        print("reads have been written to files")
 
 
 def filtered_reads_to_files(query_ed_list, genomic_reads, output_directory):
@@ -91,7 +93,6 @@ def filtered_reads_to_files(query_ed_list, genomic_reads, output_directory):
 
     for pos in range(len(query_ed_list)):
         num_low_qual_base_umi = get_number_of_low_quality_bases(query_ed_list[pos][3])
-        print(num_low_qual_base_umi)
         umi_ok = num_low_qual_base_umi < 2
         # umi_ok = True
         bc_ok = query_ed_list[pos][0][1]
