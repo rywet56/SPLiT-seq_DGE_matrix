@@ -1,4 +1,4 @@
-# SPLiT-seq_DGE_matrix
+# SPLiT-seq DGE matrix
 **work in progress**
 
 # Why this repo?
