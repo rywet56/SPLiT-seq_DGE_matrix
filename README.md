@@ -18,5 +18,5 @@ RNA transcripts of cells are labeled with cell specific barcodes (cellular barco
   - write selected BC reads, UMIs and genomics reads to .fastq files (BC_filtered.fastq and Genomic_filtered.fastq)
   ```
  <p align="center">
-  <img src="https://user-images.githubusercontent.com/43107602/67587407-1bf70d80-f754-11e9-9df6-a0d7f9de972e.png"     height="480" width="401">
+  <img src="https://user-images.githubusercontent.com/43107602/67587832-ec94d080-f754-11e9-93e2-1229cabe570b.png"     height="476.25" width="373">
  </p>
