@@ -8,8 +8,9 @@ The scRNA-seq technology SPLiT-seq was originally published by Rosenberg et al. 
 ### Split-Barcode-Pool
 Cells or nuclei of any tissue type are split into wells (96 well plate) containing different barcodes. Those well-specific barcodes are ligated to the 3' end of (ideally) all RNA transcripts in every cell within every well. After this barcoding step, cells are pooled and split again into wells containig different barcodes which are added to all RNA transcripts. Cells from all wells are pooled again. This sequence of splitting, barcoding and pooling is performed three times in the original protocol. It could be performed more often to create more possible barcode combinations.
 ### The barcode structure
-After barcoding, a template switch is introduced, cells are lysed and the barcoded transcripts are aplified via PCR to generate a sequencing library. 
-RNA transcripts of cells are labeled with cell specific barcodes (cellular barcodes = CBCs) and a uniquq molecular identifier (UMI). The CBCs make it possible to assign RNA transcripts to cells, whereas the UMI allows to distinugish technical from biological replicates.
+After barcoding, a template switch is introduced, cells are lysed and the barcoded transcripts are aplified via PCR to generate a sequencing library. The barcoded transcript now contains sequencing adapters on both ends.
+The three barcodes (pink, green and blue) make up the cell-specific barcode. All transcripts from the same cell are suposed to have the same barcode combination (the same cellular barcode). The brownish sequence corresponds to the UMI and allows to distinugish technical from biological replicates.
+In that way, the cellular barcode (CBC) allows to group transcripts (expressed genes) to cells and the UMI allows to determine the number of biological copies of every transcript (UMI count per CBC).
  <p align="center">
   <img src="https://user-images.githubusercontent.com/43107602/67589635-2536a900-f759-11e9-99ff-32ee681244ca.png"     height="175.83" width="493.83">
  </p>
