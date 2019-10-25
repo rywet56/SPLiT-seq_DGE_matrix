@@ -10,7 +10,7 @@ Cells or nuclei of any tissue type are split into wells (96 well plate) containi
 ### The barcode structure
 After barcoding, a template switch is introduced, cells are lysed and the barcoded transcripts are aplified via PCR to generate a sequencing library. The barcoded transcript now contains sequencing adapters on both ends.
 The three barcodes (pink, green and blue) make up the cell-specific barcode. All transcripts from the same cell are suposed to have the same barcode combination (the same cellular barcode). The brownish sequence corresponds to the UMI and allows to distinugish technical from biological replicates.
-In that way, the cellular barcode (CBC) allows to group transcripts (expressed genes) to cells and the UMI allows to determine the number of biological copies of every transcript (UMI count per CBC).
+In that way, the cellular barcode (CBC) allows to group transcripts (expressed genes) to cells and the UMI allows to determine the number of biological copies of every transcript (UMI count per unique transcript).
  <p align="center">
   <img src="https://user-images.githubusercontent.com/43107602/67589635-2536a900-f759-11e9-99ff-32ee681244ca.png"     height="175.83" width="493.83">
  </p>
