@@ -7,6 +7,10 @@ This repository provides tools to integrate raw scRNA-seq data (fastq files) tha
 The scRNA-seq technology SPLiT-seq was originally published by Rosenberg et al. (["Single-cell profiling of the developing mouse brain and spinal cord with split-pool barcoding"](https://science.sciencemag.org/content/360/6385/176)) in 2018.
 
 RNA transcripts of cells are labeled with cell specific barcodes (cellular barcodes = CBCs) and a uniquq molecular identifier (UMI). The CBCs make it possible to assign RNA transcripts to cells, whereas the UMI allows to distinugish technical from biological replicates.
+ <p align="center">
+  <img src="https://user-images.githubusercontent.com/43107602/67589635-2536a900-f759-11e9-99ff-32ee681244ca.png"     height="175.83" width="493.83">
+ </p>
+
 ## Workflow
 ```
 - create file containing barcodes used in SPLiT-seq experiment
