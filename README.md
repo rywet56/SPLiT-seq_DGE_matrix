@@ -1,7 +1,7 @@
 # SPLiT-seq DGE matrix generation
 
 ## Why this repo?
-The ability to describe gene expression levels at the level of single cells is becoming more and more important. That is because it allows us to describe the heterogenety of cells on the level of transcriptomes. This detailed description of differences among cells (of the same or different cell type) is crucial to better understand how different cell types and functions are defined. The knowledge gained through scRNA-seq experiments will help us to understand the development of disease in more detail and hopefully enable us to re-enigneer cells funciton "out of order" and thereby heal disease.
+The ability to describe gene expression levels at the level of single cells is becoming more and more important. That is because it allows us to describe the heterogenety of cells on the level of transcriptomes. This detailed description of differences among cells (of the same or different cell type) is crucial to better understand how different cell types and functions are defined. The knowledge gained through scRNA-seq experiments will help us to understand the development of disease in more detail and hopefully enable us to re-enigneer cells functioning "out of order" and thereby heal disease.
 
 One very elegant way to perform scRNA-seq is by the SPLiT-seq approach, originally published by Rosenberg et al. (["Single-cell profiling of the developing mouse brain and spinal cord with split-pool barcoding"](https://science.sciencemag.org/content/360/6385/176)) in 2018.
 
