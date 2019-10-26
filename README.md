@@ -26,7 +26,9 @@ Sequencing then produces two reads per barcoded transcipt that are stored in gen
 ### Create barcode combinations
 At first, three files (.txt) have to be created that contain the barcodes used in each round of the SPLiT-seq experiment. Those files are used to create a file (.txt) that contains all possible combinations of CBC's. Every possible CBC sequence is composed of three parts - a barcode from the 1st round, 2nd round and 3rd round of barcoding.
 
-- filter mate reads
+### Filter mate reads
+The next step is the selection of valid barcodes (barcode_reads.fastq) and their corresponding mate reads (genomic_reads.fastq). In the first step, every read in the "barcode_reads.fastq" file is parsed, and the actual barcodes (8 bp long sequence) are extracted from the whole read that contains linkers (grey bars). Those CBC's are stored internally together with the read quality information from the original .fastq file.
+Next, every CBC is aligned to the 
   - align BC reads to BC combinations
   - select BC reads with ED < 2 in BC region and UMIs with Phred32 > 10
   - select the corresponding mate reads in Genomic reads .fastq file
