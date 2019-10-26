@@ -38,6 +38,12 @@ This option tries to find matches in the reference for every BC read with ED <= 
 
 In both alignment versions, the next step is to mark BC reads that have a UMI with a Phred32 quality score > 10. Laslty, BC reads together with their mate read in the genomic_read.fastq file are extracted and written to three files. Selected genomic reads are written to filtered_genomic_reads.fastq, selected BC reads are written to filtered_BC_reads.txt and the corresponding UMIs are written to filtered_UMIs.txt.
 
+### Align to reference genome
+The filtered genomic reads (filtered_genomic_reads.fastq) are aligned to a reference genome with the STAR aligner (the file aligned_filtered_genomic_reads.sam is obtained). Before that, a STAR Index file of the reference genome has to be created. 
+
+### Add gene names
+The aligned genomic reads have to be associated with the name of the gene that they could be aligned to. This is done by using the Drop-seq tool "TagReadWithGeneFunction", which adds a tag to the aligned_filtered_genomic_reads.sam file that specifies the gene name of every aligned genomic read.
+
 
  
  <p align="center">
