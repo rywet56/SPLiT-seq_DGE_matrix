@@ -8,7 +8,7 @@ The scRNA-seq technology SPLiT-seq was originally published by Rosenberg et al. 
 ### Split-Barcode-Pool
 Cells or nuclei of any tissue type are split into wells (96 well plate) containing different barcodes. Those well-specific barcodes are ligated to the 3' end of (ideally) all RNA transcripts in every cell within every well. After this barcoding step, cells are pooled and split again into wells containig different barcodes which are added to all RNA transcripts. Cells from all wells are pooled again. This sequence of splitting, barcoding and pooling is performed three times in the original protocol. It could be performed more often to create more possible barcode combinations.
  <p align="center">
- <img src="https://user-images.githubusercontent.com/43107602/67618926-bce9d500-f7f5-11e9-82e3-b954e495d3dc.png" width="397.75">
+ <img src="https://user-images.githubusercontent.com/43107602/67619243-68e0ef80-f7f9-11e9-9bf1-0302d60971c6.png" width="400">
  </p>
 
 ### The barcode structure
