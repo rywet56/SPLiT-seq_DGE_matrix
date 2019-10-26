@@ -8,7 +8,7 @@ The scRNA-seq technology SPLiT-seq was originally published by Rosenberg et al. 
 ### Split-Barcode-Pool
 Cells or nuclei of any tissue type are split into wells (96 well plate) containing different barcodes. Those well-specific barcodes are ligated to the 3' end of (ideally) all RNA transcripts in every cell within every well. After this barcoding step, cells are pooled and split again into wells containig different barcodes which are added to all RNA transcripts. Cells from all wells are pooled again. This sequence of splitting, barcoding and pooling is performed three times in the original protocol. It could be performed more often to create more possible barcode combinations.
  <p align="center">
- <img src="Screen Shot 2019-10-26 at 1 36 39 PM" src="Screen Shot 2019-10-26 at 1 19 31 PM" src="https://user-images.githubusercontent.com/43107602/67618926-bce9d500-f7f5-11e9-82e3-b954e495d3dc.png" width="397.75">
+ <img src="https://user-images.githubusercontent.com/43107602/67618926-bce9d500-f7f5-11e9-82e3-b954e495d3dc.png" width="397.75">
  </p>
 
 ### The barcode structure
@@ -19,7 +19,7 @@ In that way, the cellular barcode (CBC) allows to group transcripts (expressed g
 
 Sequencing then produces two reads per barcoded transcipt that are stored in genomics_read.fastq and barcode_reads.fastq. Those files are used in the processing of raw reads in the pipeline developed (as described below)
  <p align="center">
-  <img src="Screen Shot 2019-10-26 at 1 36 39 PM" src="https://user-images.githubusercontent.com/43107602/67618927-bf4c2f00-f7f5-11e9-8724-719dcf57a3c4.png" height="339.75" width="684.75">
+  <img src="https://user-images.githubusercontent.com/43107602/67618927-bf4c2f00-f7f5-11e9-8724-719dcf57a3c4.png" height="260" width="684.75">
  </p>
 
 ## PIPELINE: Sequencing read analysis
