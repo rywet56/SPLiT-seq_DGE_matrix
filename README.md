@@ -42,9 +42,13 @@ In both alignment versions, the next step is to mark BC reads that have a UMI wi
 The filtered genomic reads (filtered_genomic_reads.fastq) are aligned to a reference genome with the STAR aligner (the file aligned_filtered_genomic_reads.sam is obtained). Before that, a STAR Index file of the reference genome has to be created. 
 
 ### Add gene names
-The aligned genomic reads have to be associated with the name of the gene that they could be aligned to. This is done by using the Drop-seq tool "TagReadWithGeneFunction", which adds a tag to the aligned_filtered_genomic_reads.sam file that specifies the gene name of every aligned genomic read.
+The aligned genomic reads have to be associated with the name of the gene that they could be aligned to. This is done by using the Drop-seq program "TagReadWithGeneFunction", which adds a tag to the aligned_filtered_genomic_reads.sam file that specifies the gene name of every aligned genomic read.
 
+### Add CBC and UMI
+In this step, every aligned genomic read is associated with its CBC and UMI in form of a tag.
 
+### Calculate DGE matrix
+In the last step, UMIs of all reads are collapsed and reads are clustered according to their CBC. This is done using the Drop-seq program "DigitalExpression", which produces a DGE matrix that contains all CBCs from the experiment (cells) as columns and all existing genes as rows. The cells of this matrix contain the UMI count of every transcript within every cell (BC combination). This UMI count expresses the expression level of each gene within a particular cell. 
  
  <p align="center">
   <img src="https://user-images.githubusercontent.com/43107602/67587832-ec94d080-f754-11e9-93e2-1229cabe570b.png"  width="373">
