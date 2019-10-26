@@ -7,6 +7,10 @@ This repository provides tools to integrate raw scRNA-seq data (fastq files) tha
 The scRNA-seq technology SPLiT-seq was originally published by Rosenberg et al. (["Single-cell profiling of the developing mouse brain and spinal cord with split-pool barcoding"](https://science.sciencemag.org/content/360/6385/176)) in 2018.
 ### Split-Barcode-Pool
 Cells or nuclei of any tissue type are split into wells (96 well plate) containing different barcodes. Those well-specific barcodes are ligated to the 3' end of (ideally) all RNA transcripts in every cell within every well. After this barcoding step, cells are pooled and split again into wells containig different barcodes which are added to all RNA transcripts. Cells from all wells are pooled again. This sequence of splitting, barcoding and pooling is performed three times in the original protocol. It could be performed more often to create more possible barcode combinations.
+ <p align="center">
+ <img src="Screen Shot 2019-10-26 at 1 36 39 PM" src="Screen Shot 2019-10-26 at 1 19 31 PM" src="https://user-images.githubusercontent.com/43107602/67618926-bce9d500-f7f5-11e9-82e3-b954e495d3dc.png" width="397.75">
+ </p>
+
 ### The barcode structure
 After barcoding, a template switch is introduced, cells are lysed and the barcoded transcripts are aplified via PCR to generate a sequencing library. The barcoded transcript now contains sequencing adapters on both ends.
 The three barcodes (pink, green and blue) make up the cell-specific barcode. All transcripts from the same cell are suposed to have the same barcode combination (the same cellular barcode). The brownish sequence corresponds to the UMI and allows to distinugish technical from biological replicates.
@@ -28,8 +32,6 @@ Sequencing then produces two reads per barcoded transcipt that are stored in gen
   - write selected BC reads, UMIs and genomics reads to .fastq files (BC_filtered.fastq and Genomic_filtered.fastq)
  
  <p align="center">
-  <img src="https://user-images.githubusercontent.com/43107602/67587832-ec94d080-f754-11e9-93e2-1229cabe570b.png"     height="476.25" width="373">
+  <img src="https://user-images.githubusercontent.com/43107602/67587832-ec94d080-f754-11e9-93e2-1229cabe570b.png"  width="373">
  </p>
- 
- <img width="823" alt="Screen Shot 2019-10-26 at 1 19 31 PM" src="https://user-images.githubusercontent.com/43107602/67618926-bce9d500-f7f5-11e9-82e3-b954e495d3dc.png">
 
