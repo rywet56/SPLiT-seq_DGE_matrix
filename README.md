@@ -19,7 +19,7 @@ In that way, the cellular barcode (CBC) allows to group transcripts (expressed g
 
 Sequencing then produces two reads per barcoded transcipt that are stored in genomics_read.fastq and barcode_reads.fastq. Those files are used in the processing of raw reads in the pipeline developed (as described below)
  <p align="center">
-  <img src="https://user-images.githubusercontent.com/43107602/67618927-bf4c2f00-f7f5-11e9-8724-719dcf57a3c4.png" height="260" width="684.75">
+  <img src="https://user-images.githubusercontent.com/43107602/67618927-bf4c2f00-f7f5-11e9-8724-719dcf57a3c4.png"  width="500">
  </p>
 
 ## PIPELINE: Sequencing read analysis
