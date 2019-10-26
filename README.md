@@ -29,13 +29,16 @@ At first, three files (.txt) have to be created that contain the barcodes used i
 ### Filter mate reads
 The next step is the selection of valid barcodes (barcode_reads.fastq) and their corresponding mate reads (genomic_reads.fastq). In the first step, every read in the "barcode_reads.fastq" file is parsed, and the actual barcodes (8 bp long sequence) are extracted from the whole read that contains linkers (grey bars). Those CBC's are stored internally together with the read quality information from the original .fastq file.
 Next, every CBC is "aligned" to the reference file that contains all possible CBC combinations. Here one of two options can be choosen when executing this step.
-comprehensive alignment:
-This option tries to find matches in the reference for every BC read up to an edit distance (ED) of <= 5. A record is kept for each aligned BC read that stores its alignment position(s) in the reference, the edit distance(s) (ED) to every aligned  sequence and the number of aligned reads with EDs 0 to 5. A comprehensive output statistic and alignment summary is returned to the user. This option is very memory and time intensive. It should only be used on a small portion (~ 5 Mio reads) of the sequencing reads.
 
-  - align BC reads to BC combinations
-  - select BC reads with ED < 2 in BC region and UMIs with Phred32 > 10
-  - select the corresponding mate reads in Genomic reads .fastq file
-  - write selected BC reads, UMIs and genomics reads to .fastq files (BC_filtered.fastq and Genomic_filtered.fastq)
+comprehensive alignment:
+This option tries to find matches in the reference for every BC read up to an edit distance (ED) of <= 5. A record is kept for each aligned BC read that stores its alignment position(s) in the reference, the edit distance(s) (ED) to every aligned  sequence and the number of aligned reads with EDs 0 to 5. A comprehensive output statistic and alignment summary is returned to the user. This option is very memory and time intensive. It should only be used on a small portion (~ 5 Mio reads) of the sequencing reads to get an idea of the structure and quality of the performed experiment.
+
+fast alignment:
+This option tries to find matches in the reference for every BC read with ED <= 1. This type of alignment returns a list that contains every BC read and infromation on wether it could be aligned or not. This fast alignment is useful to perform BC read selection on a bigger amount of reads (80 Mio reads or more).
+
+In both alignment versions, the next step is to mark BC reads that have a UMI with a Phred32 quality score > 10. Laslty, BC reads together with their mate read in the genomic_read.fastq file are extracted and written to three files. Selected genomic reads are written to filtered_genomic_reads.fastq, selected BC reads are written to filtered_BC_reads.txt and the corresponding UMIs are written to filtered_UMIs.txt.
+
+
  
  <p align="center">
   <img src="https://user-images.githubusercontent.com/43107602/67587832-ec94d080-f754-11e9-93e2-1229cabe570b.png"  width="373">
