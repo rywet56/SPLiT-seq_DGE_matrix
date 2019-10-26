@@ -23,8 +23,9 @@ Sequencing then produces two reads per barcoded transcipt that are stored in gen
  </p>
 
 ## PIPELINE: Sequencing read analysis
-- create file containing barcodes used in SPLiT-seq experiment
-- create all possible combinations of barcodes (BCs)
+### Create barcode combinations
+At first, three files (.txt) have to be created that contain the barcodes used in each round of the SPLiT-seq experiment. Those files are used to create a file (.txt) that contains all possible combinations of CBC's. Every possible CBC sequence is composed of three parts - a barcode from the 1st round, 2nd round and 3rd round of barcoding.
+
 - filter mate reads
   - align BC reads to BC combinations
   - select BC reads with ED < 2 in BC region and UMIs with Phred32 > 10
