@@ -56,3 +56,8 @@ In the last step, UMIs of all reads are collapsed and reads are clustered accord
   <img src="https://user-images.githubusercontent.com/43107602/67587832-ec94d080-f754-11e9-93e2-1229cabe570b.png"  width="373">
  </p>
 
+# Credit
+All graphics and content in "BACKGROUND: The SPLiT-seq experiment" are based on the paper from Rosenberg et al.(1)
+
+# References
+1) Rosenberg, A. B. et al. Single-cell profiling of the developing mouse brain and spinal cord with split-pool barcoding. Science (80-. ). 360, 176 LP – 182 (2018).
