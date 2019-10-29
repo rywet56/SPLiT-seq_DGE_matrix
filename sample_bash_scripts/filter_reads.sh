@@ -7,20 +7,20 @@
 #out1=$meta_data/barcodes_paper
 #name1="r1barcodes"
 #
-#python3 $scripts/extract_barcodes_txt_to_FASTA.py --in_dir $in1 --out_dir $out1 --file_name $name1
+#python3 $scripts/barcodes_to_txt.py --in_dir $in1 --out_dir $out1 --file_name $name1
 #
 #
 #in2=$meta_data/barcodes_paper/R2_barcodes.txt
 #out2=$meta_data/barcodes_paper
 #name2="r2barcodes"
 #
-#python3 $scripts/extract_barcodes_txt_to_FASTA.py --in_dir $in2 --out_dir $out2 --file_name $name2
+#python3 $scripts/barcodes_to_txt.py --in_dir $in2 --out_dir $out2 --file_name $name2
 #
 #in3=$meta_data/barcodes_paper/R3_barcodes.txt
 #out3=$meta_data/barcodes_paper
 #name3="r3barcodes"
 #
-#python3 $scripts/extract_barcodes_txt_to_FASTA.py --in_dir $in3 --out_dir $out3 --file_name $name3
+#python3 $scripts/barcodes_to_txt.py --in_dir $in3 --out_dir $out3 --file_name $name3
 
 # export PATH="$PATH:/usr/local/bin/python"
 

@@ -1,21 +1,6 @@
-import os
-import sys
-import getopt
-
+from tools.file_input_output import write_to_txt, read_from_file
 from tools.utils import get_cmd_args
 
-
-def txt_to_list(input_file_destination):
-    handler = open(input_file_destination)
-    txt_list = handler.readlines()
-    return txt_list
-
-def remove_newlinetag(some_list):
-    some_list_newlineremoved = []
-    for entry in some_list:
-        some_list_newlineremoved.append(entry.rstrip())
-
-    return some_list_newlineremoved
 
 def remove_5Phos(some_list):
     Phos_removed = []
@@ -24,12 +9,14 @@ def remove_5Phos(some_list):
 
     return Phos_removed
 
+
 def remove_5Biosg(some_list):
     Biosg_removed = []
     for entry in some_list:
         Biosg_removed.append(entry[8:])
 
     return Biosg_removed
+
 
 def type_remove(some_list):
     sequence_type_to_be_removed = ''
@@ -41,24 +28,19 @@ def type_remove(some_list):
 
     return sequence_type_to_be_removed
 
-def nt_sequence_list_to_fasta(nt_sequence_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + ".fasta", "w")
-    handler.write(">" + output_file_name)
-    handler.write("\n")
-
-    for entry in nt_sequence_list:
-        handler.write(entry)
-        handler.write("\n")
-    handler.close()
 
 def barcodes_txt_to_FASTA(input_file_destination, output_directory, output_file_name):
-    cleaned_list = remove_newlinetag(txt_to_list(input_file_destination))
-    type_to_be_removed = type_remove(cleaned_list)
+    barcode_list = read_from_file(file_type = "txt", input_file = input_file_destination)
+    type_to_be_removed = type_remove(barcode_list)
+    cleaned_barcoed_list = []
+
     if type_to_be_removed == "5Biosg":
-        cleaned_list_2 = remove_5Biosg(cleaned_list)
+        cleaned_barcoed_list = remove_5Biosg(barcode_list)
     elif type_to_be_removed == "5Phos":
-        cleaned_list_2 = remove_5Phos(cleaned_list)
-    nt_sequence_list_to_fasta(cleaned_list_2, output_directory, output_file_name)
+        cleaned_barcoed_list = remove_5Phos(barcode_list)
+
+    write_to_txt(cleaned_barcoed_list, output_directory, output_file_name)
+
 
 def return_cmd_args(args):
 

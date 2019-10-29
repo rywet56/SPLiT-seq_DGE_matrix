@@ -92,7 +92,7 @@ def read_from_file(*args, **kwargs):
 
         elif kwargs["file_type"] == "bcal":
             pass
-    finally:
-        handler.close()
+    # finally:
+    #     handler.close()
 
     return input_list
