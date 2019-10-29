@@ -33,6 +33,7 @@ def get_cmd_args():
     parser.add_argument('--in_dir')
     parser.add_argument('--out_dir', help='output direcotry')
     parser.add_argument('--file_name')
+    parser.add_argument('--mode')
     args = parser.parse_args()
     # args_dic = vars(args)
 

@@ -2,7 +2,7 @@ from tools.utils import calculate_runtime, return_cmd_args, get_cmd_args
 from tools.file_input_output import *
 
 
-def align_string_per_list_element(bc_list, query):
+def align_string_per_list_element_simple(bc_list, query):
     query_tuple = ()
     bc_comb_no = 0
     no_of_barcode_combs = len(bc_list)
@@ -67,42 +67,50 @@ def align_string_per_list_element_comprehensive(bc_list, query):
 
 
 @calculate_runtime
-def align_list_entries(reference_list, query_list, genomic_reads, out_dir, mode="simple"):
+def align_list_entries(reference_list, query_list, genomic_reads, out_dir, mode):
     if mode == "simple":
         query_ed_list = []
         for query in query_list:
-            query_ed_list.append((align_string_per_list_element(reference_list, query[0]), query[1], query[2], query[3]))
-        print("reads have been aligned")
+            query_ed_list.append((align_string_per_list_element_simple(reference_list, query[0]), query[1], query[2], query[3]))
+        print("reads have been aligned in mode: simple")
         # structure of quere_ed_list
         # [ ( (bc, True/False), bc_qual, umi, umi_qual ), (), ...]
         filtered_reads_to_files(query_ed_list, genomic_reads, out_dir)
+        print("filtered reads have sucessfully been written to files")
+
     elif mode == "comprehensive":
         query_align_pos_list = []
         for query in query_list:
             query_align_pos_list.append(align_string_per_list_element_comprehensive(reference_list, query[0]))
+        print("reads have been aligned in mode: comprehensive")
 
         write_read_summary_to_txt_enduser(query_align_pos_list, out_dir, "alignment_summary")
         write_read_summary_statistics_to_txt(query_align_pos_list, out_dir, "alignment_summary")
-        print("reads have been written to files")
+        print("alignment summar and statistics have sucessfully been written to files")
+        # function has to be called to write filtered reads to files
+        print("filtered reads have sucessfully been written to files")
 
 
 def filtered_reads_to_files(query_ed_list, genomic_reads, output_directory):
 
     new_gen_read_list = []
     new_bc_read_list = []
+    new_umi_list = []
 
     for pos in range(len(query_ed_list)):
         num_low_qual_base_umi = get_number_of_low_quality_bases(query_ed_list[pos][3])
         umi_ok = num_low_qual_base_umi < 2
-        # umi_ok = True
+
         bc_ok = query_ed_list[pos][0][1]
 
         if umi_ok and bc_ok:
             new_gen_read_list.append(genomic_reads[pos])
             new_bc_read_list.append(query_ed_list[pos][0][0])
+            new_umi_list.append(query_ed_list[pos][2])
 
     write_to_fastq(new_gen_read_list, output_directory, "filtered_genomic_reads")
     write_to_txt(new_bc_read_list, output_directory, "filtered_bc_reads")
+    write_to_txt(new_umi_list, output_directory, "filtered_UMIs")
 
 
 def get_bcs_umis(path_to_bc_reads):
@@ -281,18 +289,20 @@ def main(cmd_args):
     # path_to_extracted_barcodes_txt = cmd_args["bc_reads"]
     path_to_genomic_reads = cmd_args["gen_reads"]
     out_put_dir = cmd_args["out_dir"]
+    mode = cmd_args['mode']
 
     reference_list = read_from_file(input_file=path_to_reference, file_type="txt")
     barcode_reads_list = get_bcs_umis(path_to_barcode_reads)
     # extracted_barcodes_list = read_from_file(input_file=path_to_extracted_barcodes_txt, file_type="txt")
     genomic_reads_list = read_from_file(input_file=path_to_genomic_reads, file_type="fastq_all")
 
-    align_list_entries(reference_list, barcode_reads_list, genomic_reads_list, out_dir=out_put_dir, mode="simple")
+    align_list_entries(reference_list, barcode_reads_list, genomic_reads_list, out_dir=out_put_dir, mode=mode)
 
+    # has tobe added as wrapper function
     import os
     import psutil
     process = psutil.Process(os.getpid())
-    print(process.memory_info().rss)  # in bytes 
+    print("The memory usage was: " + str(process.memory_info().rss/1000000000) + " GB")  # in bytes
 
 
 if __name__ == "__main__":
