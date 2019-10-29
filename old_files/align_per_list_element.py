@@ -1,7 +1,6 @@
-import sys
 from tools.file_input_output import *
-from tools.utils import calculate_runtime, return_cmd_args, get_cmd_args
-from Reads import ReadSummary
+from tools.utils import calculate_runtime, get_cmd_args
+
 """
 ####### core algorithm of alignment problem
 """

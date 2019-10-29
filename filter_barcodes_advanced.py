@@ -286,14 +286,12 @@ def write_read_summary_statistics_to_txt(summary_list, output_directory, output_
 def main(cmd_args):
     path_to_reference = cmd_args["bc_reference"]
     path_to_barcode_reads = cmd_args["bc_reads"]
-    # path_to_extracted_barcodes_txt = cmd_args["bc_reads"]
     path_to_genomic_reads = cmd_args["gen_reads"]
     out_put_dir = cmd_args["out_dir"]
     mode = cmd_args['mode']
 
     reference_list = read_from_file(input_file=path_to_reference, file_type="txt")
     barcode_reads_list = get_bcs_umis(path_to_barcode_reads)
-    # extracted_barcodes_list = read_from_file(input_file=path_to_extracted_barcodes_txt, file_type="txt")
     genomic_reads_list = read_from_file(input_file=path_to_genomic_reads, file_type="fastq_all")
 
     align_list_entries(reference_list, barcode_reads_list, genomic_reads_list, out_dir=out_put_dir, mode=mode)
