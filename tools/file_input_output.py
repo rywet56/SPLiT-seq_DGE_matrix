@@ -1,3 +1,5 @@
+import pysam
+
 from tools.utils import QSanger_to_Phred33
 
 
@@ -90,9 +92,15 @@ def read_from_file(*args, **kwargs):
                 read_qual = record.letter_annotations["phred_quality"]
                 input_list.append((read_name, read_seq, read_qual))
 
-        elif kwargs["file_type"] == "bcal":
-            pass
-    # finally:
-    #     handler.close()
+        elif kwargs["file_type"] == "sam":
+            """
+            structure of returned sam list:
+            [ [AlignmentFile_object, query_name_number], [], ... ]
+            """
+            sam = pysam.AlignmentFile(input_file, "r")
+            input_list = []
+            for query in sam.fetch():
+                query_no = query.query_name.split(".")[1]
+                input_list.append([query, query_no])
 
     return input_list

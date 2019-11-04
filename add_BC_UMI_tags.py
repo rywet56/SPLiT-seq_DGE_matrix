@@ -1,20 +1,41 @@
 import pysam
 from tools.file_input_output import read_from_file
 from tools.utils import get_cmd_args
+from tools.sam_tools import sort_sam
+
+
+def same_length(sam_in_path):
+    sam_in = pysam.AlignmentFile(sam_in_path, "r")
+    length = 0
+    for read in sam_in.fetch():
+        if read:
+            length += 1
+
+    return length
+
+
+def same_dimension(path_to_bc, path_to_umi, sam_in_path):
+    bc_list = read_from_file(file_type="txt", input_file=path_to_bc)
+    umi_list = read_from_file(file_type="txt", input_file=path_to_umi)
 
 
 def add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name):
+    sam_in = pysam.AlignmentFile(sam_in_path, "r")
+    # tes if dimensions of input are correct
+
+    # sort input sam file according to quryname order
+    sam_list = sort_sam(sam_in)
+
     sam_out_path += "/" + file_name
     bc_list = read_from_file(file_type="txt", input_file=path_to_bc)
     umi_list = read_from_file(file_type="txt", input_file=path_to_umi)
-    sam_in = pysam.AlignmentFile(sam_in_path, "r")
     sam_out = pysam.AlignmentFile(sam_out_path, "w", template=sam_in)
 
     i = 0
-    for aligned_read in sam_in.fetch():
-        aligned_read.set_tag("BC", bc_list[i])
-        aligned_read.set_tag("UI", umi_list[i])
-        sam_out.write(aligned_read)
+    for read in sam_list:
+        read[0].set_tag("BC", bc_list[i])
+        read[0].set_tag("UI", umi_list[i])
+        sam_out.write(read[0])
         i += 1
 
 

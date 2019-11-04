@@ -4,7 +4,7 @@ scripts="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/
 
 path_to_bc="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/results/filtered_bc_reads.txt"
 path_to_umi="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/results/filtered_UMIs.txt"
-sam_in_path="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/aligned_genomic_reads/aligned_genomic_reads.sam"
+sam_in_path="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/aligned_genomic_reads/test.sam"
 sam_out_path="/Users/manuel/Desktop"
 file_name="out_bc_umi.sam"
 
