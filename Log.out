@@ -1,0 +1,105 @@
+STAR version=2.7.2b
+STAR compilation time,server,dir=Thu Aug 29 20:46:18 GMT 2019 :/Users/travis/build/alexdobin/travis-tests/STARcompile/source
+##### Command Line:
+STAR --runThreadN 4 --runMode genomeGenerate --genomeDir /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome --genomeFastaFiles /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta --sjdbGTFfile /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.gtf --sjdbOverhang 100-1
+##### Initial USER parameters from Command Line:
+###### All USER parameters from Command Line:
+runThreadN                    4     ~RE-DEFINED
+runMode                       genomeGenerate     ~RE-DEFINED
+genomeDir                     /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome     ~RE-DEFINED
+genomeFastaFiles              /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta        ~RE-DEFINED
+sjdbGTFfile                   /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.gtf     ~RE-DEFINED
+sjdbOverhang                  100     ~RE-DEFINED
+##### Finished reading parameters from all sources
+
+##### Final user re-defined parameters-----------------:
+runMode                           genomeGenerate
+runThreadN                        4
+genomeDir                         /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome
+genomeFastaFiles                  /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta   
+sjdbGTFfile                       /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.gtf
+sjdbOverhang                      100
+
+-------------------------------
+##### Final effective command line:
+STAR   --runMode genomeGenerate   --runThreadN 4   --genomeDir /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome   --genomeFastaFiles /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta      --sjdbGTFfile /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.gtf   --sjdbOverhang 100
+----------------------------------------
+
+Finished loading and checking parameters
+Nov 02 08:27:01 ... starting to generate Genome files
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 0  "1" chrStart: 0
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 1  "10" chrStart: 195559424
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 2  "11" chrStart: 326369280
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 3  "12" chrStart: 448528384
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 4  "13" chrStart: 568852480
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 5  "14" chrStart: 689438720
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 6  "15" chrStart: 814481408
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 7  "16" chrStart: 918552576
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 8  "17" chrStart: 1016856576
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 9  "18" chrStart: 1112014848
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 10  "19" chrStart: 1202978816
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 11  "2" chrStart: 1264582656
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 12  "3" chrStart: 1446772736
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 13  "4" chrStart: 1606942720
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 14  "5" chrStart: 1763704832
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 15  "6" chrStart: 1915748352
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 16  "7" chrStart: 2065694720
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 17  "8" chrStart: 2211184640
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 18  "9" chrStart: 2340683776
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 19  "MT" chrStart: 2465464320
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 20  "X" chrStart: 2465726464
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 21  "Y" chrStart: 2636906496
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 22  "JH584299.1" chrStart: 2728656896
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 23  "GL456233.1" chrStart: 2729705472
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 24  "JH584301.1" chrStart: 2730229760
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 25  "GL456211.1" chrStart: 2730491904
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 26  "GL456350.1" chrStart: 2730754048
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 27  "JH584293.1" chrStart: 2731016192
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 28  "GL456221.1" chrStart: 2731278336
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 29  "JH584297.1" chrStart: 2731540480
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 30  "JH584296.1" chrStart: 2731802624
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 31  "GL456354.1" chrStart: 2732064768
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 32  "JH584294.1" chrStart: 2732326912
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 33  "JH584298.1" chrStart: 2732589056
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 34  "JH584300.1" chrStart: 2732851200
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 35  "GL456219.1" chrStart: 2733113344
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 36  "GL456210.1" chrStart: 2733375488
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 37  "JH584303.1" chrStart: 2733637632
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 38  "JH584302.1" chrStart: 2733899776
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 39  "GL456212.1" chrStart: 2734161920
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 40  "JH584304.1" chrStart: 2734424064
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 41  "GL456379.1" chrStart: 2734686208
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 42  "GL456216.1" chrStart: 2734948352
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 43  "GL456393.1" chrStart: 2735210496
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 44  "GL456366.1" chrStart: 2735472640
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 45  "GL456367.1" chrStart: 2735734784
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 46  "GL456239.1" chrStart: 2735996928
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 47  "GL456213.1" chrStart: 2736259072
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 48  "GL456383.1" chrStart: 2736521216
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 49  "GL456385.1" chrStart: 2736783360
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 50  "GL456360.1" chrStart: 2737045504
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 51  "GL456378.1" chrStart: 2737307648
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 52  "GL456389.1" chrStart: 2737569792
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 53  "GL456372.1" chrStart: 2737831936
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 54  "GL456370.1" chrStart: 2738094080
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 55  "GL456381.1" chrStart: 2738356224
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 56  "GL456387.1" chrStart: 2738618368
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 57  "GL456390.1" chrStart: 2738880512
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 58  "GL456394.1" chrStart: 2739142656
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 59  "GL456392.1" chrStart: 2739404800
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 60  "GL456382.1" chrStart: 2739666944
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 61  "GL456359.1" chrStart: 2739929088
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 62  "GL456396.1" chrStart: 2740191232
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 63  "GL456368.1" chrStart: 2740453376
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 64  "JH584292.1" chrStart: 2740715520
+/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/mm_GRCm38.75.fasta : chr # 65  "JH584295.1" chrStart: 2740977664
+Estimated genome size=2942239808   2741239808   201000000
+GstrandBit=32
+Number of SA indices: 5305567000
+Nov 02 08:27:56 ... starting to sort Suffix Array. This may take a long time...
+Number of chunks: 12;   chunks size limit: 3827625056 bytes
+Nov 02 08:28:07 ... sorting Suffix Array chunks and saving them to disk...
+Writing 3612813472 bytes into /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome/SA_0 ; empty space on disk = 4310563815424 bytes ... done
+Writing 3789237744 bytes into /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome/SA_1 ; empty space on disk = 3374937276416 bytes ...Writing 3701770448 bytes into /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome/SA_3 ; empty space on disk = 3372347293696 bytes ...Writing 3827320688 bytes into /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/genome/annotated_genome/SA_2 ; empty space on disk = 3186869927936 bytes ... done
+ done
+ done

@@ -37,7 +37,10 @@ def get_cmd_args():
     parser.add_argument('--bc1')
     parser.add_argument('--bc2')
     parser.add_argument('--bc3')
-
+    parser.add_argument('--umi_in')
+    parser.add_argument('--bc_in')
+    parser.add_argument('--sam_in')
+    parser.add_argument('--sam_out')
     args = parser.parse_args()
     # args_dic = vars(args)
 
