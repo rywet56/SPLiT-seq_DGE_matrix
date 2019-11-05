@@ -30,11 +30,11 @@ def add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_n
     bc_list = read_from_file(file_type="txt", input_file=path_to_bc)
     umi_list = read_from_file(file_type="txt", input_file=path_to_umi)
     sam_out = pysam.AlignmentFile(sam_out_path, "w", template=sam_in)
-
+    print(len(sam_list))
     i = 0
     for read in sam_list:
-        read[0].set_tag("BC", bc_list[i])
-        read[0].set_tag("UI", umi_list[i])
+        read[0].set_tag("XC", bc_list[i])
+        read[0].set_tag("XM", umi_list[i])
         sam_out.write(read[0])
         i += 1
 

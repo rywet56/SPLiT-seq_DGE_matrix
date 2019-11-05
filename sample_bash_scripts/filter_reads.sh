@@ -60,8 +60,8 @@ meta_data="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generatio
 scripts="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/SPLiT-seq_DGE_matrix"
 
 bc_ref=$meta_data/barcode_reference/barcode_combinations.txt
-bc_reads=$meta_data/barcode_reads/test_500.fastq
-gen_reads=$meta_data/barcode_reads/test_500.fastq
+bc_reads=$meta_data/barcode_reads/150000_nuclei_experiment/bc_1000.fastq
+gen_reads=$meta_data/genomic_reads/150000_nuclei_experiment/gen_1000.fastq
 out_dir=$meta_data/results
 
 python3 $scripts/filter_barcodes_advanced.py \
