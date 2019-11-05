@@ -53,7 +53,7 @@ In this step, every aligned genomic read is associated with its CBC and UMI in f
 In the last step, UMIs of all reads are collapsed and reads are clustered according to their CBC. This is done using the Drop-seq program "DigitalExpression", which produces a DGE matrix that contains all CBCs from the experiment (cells) as columns and all existing genes as rows. The cells of this matrix contain the UMI count of every transcript within every cell (BC combination). This UMI count expresses the expression level of each gene within a particular cell. 
  
  <p align="center">
-  <img src="https://user-images.githubusercontent.com/43107602/68235158-08c12900-0003-11ea-9335-7b24cceb49bc.png"  width="500">
+  <img src="https://user-images.githubusercontent.com/43107602/68235158-08c12900-0003-11ea-9335-7b24cceb49bc.png"  width="700">
  </p>
 
 # Credit
