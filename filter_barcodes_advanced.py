@@ -296,7 +296,7 @@ def main(cmd_args):
 
     align_list_entries(reference_list, barcode_reads_list, genomic_reads_list, out_dir=out_put_dir, mode=mode)
 
-    # has tobe added as wrapper function
+    # has to be added as wrapper function
     import os
     import psutil
     process = psutil.Process(os.getpid())
