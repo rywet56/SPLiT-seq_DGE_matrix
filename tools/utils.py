@@ -1,7 +1,8 @@
 import getopt
 import time
 import argparse
-
+import os
+import psutil
 
 def calculate_runtime(func):
     def wrapper(*args, **kwargs):
@@ -16,7 +17,45 @@ def calculate_runtime(func):
         handler.close()
 
         return result
+    return wrapper
 
+
+def calculate_memory_usage(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        process = psutil.Process(os.getpid())
+        print("The memory usage was: " + str(process.memory_info().rss / 1000000000) + " GB")  # in bytes
+        return result
+    return wrapper
+
+
+def get_resources_used(func):
+    def wrapper(*args, **kwargs):
+
+        # get the runtime
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        difference = end-start
+        print(difference)
+        hours = int(difference/60)
+        minutes = int((difference-(hours*60))/60)
+        seconds = int((difference-(minutes*60))/60)
+        milliseconds = int((difference-(seconds*60))*1000)
+        print(milliseconds)
+        # get the memory usage
+        process = psutil.Process(os.getpid())
+
+        out_put_dir = kwargs['out_dir']
+        output_file_name = 'runtime_analyses'
+
+        handler = open(out_put_dir + "/" + output_file_name + ".txt", "w")
+        handler.write("The runtime was: " + str(hours) + " hrs - " + str(minutes) + " minutes - " + str(seconds) + " seconds - " + str(milliseconds) + " milliseconds")
+        handler.write("\n")
+        handler.write("The memory usage was: " + str(process.memory_info().rss / 1000000000) + " GB")
+        handler.close()
+
+        return result
     return wrapper
 
 

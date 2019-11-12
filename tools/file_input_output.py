@@ -32,8 +32,12 @@ def write_to_txt(input_list, output_directory, output_file_name):
     handler.close()
 
 
-def write_to_fastq(fastq_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + ".fastq", "w")
+def write_to_fastq(fastq_list, output_directory, output_file_name, mode="write"):
+    if mode == "write":
+        handler = open(output_directory + "/" + output_file_name + ".fastq", "w")
+    elif mode == "append":
+        handler = open(output_directory + "/" + output_file_name + ".fastq", "a")
+
     for read in fastq_list:
         handler.write("@" + read[0] + "\n")
         handler.write(read[1] + "\n")
