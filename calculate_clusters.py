@@ -1,5 +1,5 @@
 from tools.file_input_output import read_from_file
-from tools.utils import get_resources_used
+from tools.utils import get_resources_used, get_cmd_args
 
 
 def get_gene_name(genes, read_id):
@@ -36,6 +36,11 @@ def get_number_of_reads(gene_list):
     return len(gene_list)
 
 
+def get_gene_name_list(gene):
+    # return gene[0].split('\n')
+    return gene
+
+
 @get_resources_used
 def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
     '''
@@ -46,7 +51,9 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
     :param genes: [gene_1, gene_2, gene45, ... ]
     '''
     handler = open(out_dir + "/" + file_name + ".txt", "w")
-    no_reads = get_number_of_reads(genes)
+    # gene_list = get_gene_name_list(genes)
+    gene_list = genes  # to be removed
+    no_reads = get_number_of_reads(gene_list)
     read_umi_list = get_read_umi_list(umis, no_reads)
 
     for cluster in barcodes:
@@ -60,26 +67,47 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
 
         for read in range(no_reads):
             read_no = int(read_numbers[read])
-            handler.write(get_gene_name(genes, read_no) + ',' + str(get_umi_number(read_umi_list, read_no)))
+            handler.write(get_gene_name(gene_list, read_no) + ',' + str(get_umi_number(read_umi_list, read_no)))
 
             if read < no_reads-1:
-                handler.write("-")
+                handler.write(",")
         handler.write("\n")
 
+# path_to_barcodes = "/Users/manuel/Desktop/clustered_barcodes.txt"
+# path_to_umis = "/Users/manuel/Desktop/clustered_UMIs.txt"
+# path_to_genes = "/Users/manuel/Desktop/sorted.txt"
+# path_to_out = "/Users/manuel/Desktop"
+#
+# barcodes = read_from_file(input_file=path_to_barcodes, file_type="txt")
+# umis = read_from_file(input_file=path_to_umis, file_type="txt")
+# genes = read_from_file(input_file=path_to_genes, file_type="txt")
+#
+# artifical_gene_list = [""]*1000000
+#
+# for i in range(1000000):
+#     artifical_gene_list[i] = "gene_" + str(i)
+#
+# construct_cluster_umi_file(barcodes, umis, artifical_gene_list, out_dir=path_to_out, file_name="cluster_out")
 
-path_to_barcodes = "/Users/manuel/Desktop/clustered_barcodes.txt"
-path_to_umis = "/Users/manuel/Desktop/clustered_UMIs.txt"
-path_to_genes = "/Users/manuel/Desktop/sorted.txt"
-path_to_out = "/Users/manuel/Desktop"
+def main(cmd_args):
+    path_to_barcodes = cmd_args['cbc_clusters']
+    barcodes = read_from_file(input_file=path_to_barcodes, file_type="txt")
 
-barcodes = read_from_file(input_file=path_to_barcodes, file_type="txt")
-umis = read_from_file(input_file=path_to_umis, file_type="txt")
-genes = read_from_file(input_file=path_to_genes, file_type="txt")
+    path_to_umis = cmd_args['umi_clusters']
+    umis = read_from_file(input_file=path_to_umis, file_type="txt")
 
-artifical_gene_list = [""]*1000000
+    path_to_genes = cmd_args['gene_names']
+    genes = read_from_file(input_file=path_to_genes, file_type="txt")
 
-for i in range(1000000):
-    artifical_gene_list[i] = "gene_" + str(i)
+    artifical_gene_list = [""] * 1000000
+    for i in range(1000000):
+        artifical_gene_list[i] = "gene_" + str(i)
 
-construct_cluster_umi_file(barcodes, umis, artifical_gene_list, out_dir=path_to_out, file_name="cluster_out")
+    output_file_name = cmd_args["file_name"]
+    out_put_dir = cmd_args["out_dir"]
 
+    construct_cluster_umi_file(barcodes, umis, artifical_gene_list, out_dir=out_put_dir, file_name=output_file_name)
+
+
+if __name__ == "__main__":
+    main(get_cmd_args())

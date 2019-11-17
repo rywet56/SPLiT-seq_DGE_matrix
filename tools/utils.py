@@ -80,6 +80,10 @@ def get_cmd_args():
     parser.add_argument('--bc_in')
     parser.add_argument('--sam_in')
     parser.add_argument('--sam_out')
+    parser.add_argument('--cbc_clusters')
+    parser.add_argument('--umi_clusters')
+    parser.add_argument('--gene_names')
+    parser.add_argument('--clusters')
     args = parser.parse_args()
     # args_dic = vars(args)
 

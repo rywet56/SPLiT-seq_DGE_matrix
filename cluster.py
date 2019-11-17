@@ -34,6 +34,34 @@ class Cluster:
         # print("cluster size: " + str(self.cluster_size))
         # print("-----------------------------------")
 
+    def add_reads(self, bc_seq, cluster_size, gene_umi_list):
+        '''
+        :param cluster_size:
+        :param cluser_size:
+        :param bc_seq:
+        :param gene_name:
+        '''
+        self.cellular_barcode = bc_seq
+        self.cluster_size = cluster_size
+
+        genes_umis = gene_umi_list.split(',')
+        no_genes = int(len(genes_umis)/2)
+        self.gene_names = [""]*no_genes
+        self.umis = [0]*no_genes
+
+        i = 0
+        gene = 0
+        while i < no_genes:
+            self.gene_names[i] = genes_umis[gene]
+            self.umis[i] = genes_umis[gene+1]
+            i += 1
+            gene += 2
+        # print("cluster name: " + self.cellular_barcode)
+        # print("cluster umis: " + str(self.umis))
+        # print("gene names: " + str(self.gene_names))
+        # print("cluster size: " + str(self.cluster_size))
+        # print("-----------------------------------")
+
     def collapse_umis(self):
         for i in range(len(self.gene_names)):
             if self.gene_names[i] in self.gene_counts:  # is gene already listed?
