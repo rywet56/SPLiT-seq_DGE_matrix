@@ -14,6 +14,7 @@ def bubble_sort(some_list):
                 unsorted = True
     return some_list
 
+
 def sort_sam(sam):
     input_list = []
     for query in sam.fetch():
@@ -21,6 +22,13 @@ def sort_sam(sam):
         input_list.append([query, query_no])
     return bubble_sort(input_list)
 
+
+def sort_sam_2(sam):
+    input_list = []
+    for query in sam.fetch():
+        query_no = int(query.query_name.split(".")[1])
+        input_list.append([query, query_no])
+    return bubble_sort(input_list)
 
 
 # Check genes added to each read
