@@ -104,7 +104,7 @@ def read_from_file(*args, **kwargs):
             sam = pysam.AlignmentFile(input_file, "r")
             input_list = []
             for query in sam.fetch():
-                query_no = query.query_name.split(".")[1]
-                input_list.append([query, query_no])
+                # query_no = query.query_name.split(".")[1]
+                input_list.append([query, query.query_name])
 
     return input_list

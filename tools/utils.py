@@ -37,12 +37,12 @@ def get_resources_used(func):
         result = func(*args, **kwargs)
         end = time.time()
         difference = end-start
-        print(difference)
+
         hours = int(difference/60)
         minutes = int((difference-(hours*60))/60)
         seconds = int((difference-(minutes*60))/60)
         milliseconds = int((difference-(seconds*60))*1000)
-        print(milliseconds)
+
         # get the memory usage
         process = psutil.Process(os.getpid())
 
@@ -50,6 +50,7 @@ def get_resources_used(func):
         output_file_name = 'runtime_analyses'
 
         handler = open(out_put_dir + "/" + output_file_name + ".txt", "w")
+        handler.write("The runtime was: " + str(difference) + " seconds")
         handler.write("The runtime was: " + str(hours) + " hrs - " + str(minutes) + " minutes - " + str(seconds) + " seconds - " + str(milliseconds) + " milliseconds")
         handler.write("\n")
         handler.write("The memory usage was: " + str(process.memory_info().rss / 1000000000) + " GB")

@@ -4,11 +4,11 @@ meta_data=""
 scripts="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/SPLiT-seq_DGE_matrix"
 
 
-clusters="/Users/manuel/Desktop/cluster_out_test.txt"
+sam_file="/Users/manuel/Desktop/genfun_tagged.sam"
 out="/Users/manuel/Desktop"
-name="expression"
+name="sorted_gene_names"
 
-python3 $scripts/calculate_DGE_matrix.py \
-    --clusters $clusters \
+python3 $scripts/extract_gene_name.py \
+    --sam_in $sam_file \
     --out_dir $out \
     --file_name $name

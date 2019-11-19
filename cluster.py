@@ -51,11 +51,14 @@ class Cluster:
 
         i = 0
         gene = 0
+
         while i < no_genes:
             self.gene_names[i] = genes_umis[gene]
             self.umis[i] = genes_umis[gene+1]
+
             i += 1
             gene += 2
+        #
         # print("cluster name: " + self.cellular_barcode)
         # print("cluster umis: " + str(self.umis))
         # print("gene names: " + str(self.gene_names))
@@ -63,6 +66,9 @@ class Cluster:
         # print("-----------------------------------")
 
     def collapse_umis(self):
+        # print("cluster umis: " + str(self.umis))
+        # print("gene names: " + str(self.gene_names))
+        # print("-----------------------------------")
         for i in range(len(self.gene_names)):
             if self.gene_names[i] in self.gene_counts:  # is gene already listed?
                 if self.umis[i] not in self.gene_counts[self.gene_names[i]][1]:  # check existence of UMI for this gene

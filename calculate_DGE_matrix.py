@@ -9,11 +9,16 @@ def read_in_clusters(path_to_cluster_file):
     '''
     clusters_raw = read_from_file(input_file=path_to_cluster_file, file_type="txt")
     no_clusters = get_number_of_clusters(clusters_raw)
-    clusters = [Cluster()]*no_clusters
+    clusters = []
+    for cluster_no in range(no_clusters):
+        clusters.append(Cluster())
 
+    print("empty clusters formed")
     for cluster_no in range(no_clusters):
         cluster = clusters_raw[cluster_no].split('\t')
         clusters[cluster_no].add_reads(bc_seq=cluster[0], cluster_size=cluster[1], gene_umi_list=cluster[2])
+
+    print("clusters populated")
     return clusters
 
 
@@ -45,6 +50,7 @@ def get_number_of_genes(gene_list):
 
 def collapse_cluster_umis(clusters):
     for cluster in clusters:
+        # print(cluster)
         cluster.collapse_umis()
     return clusters
 
@@ -62,12 +68,18 @@ def calculate_dge_matrix(clusters, gene_list,):
             row = gene_list.index(gene[0])
             col = cluster
             count_matrix[row-1][col-1] = gene[1][0]
+    print("DGE matrix contains: " + str(cluster_no) + " cells")
+
+    handler = open("/Users/manuel/Desktop/some_statistics", "w")
+    handler.write("barcodes\tnumber of genes\n")
+    for cluster in clusters:
+        handler.write(cluster.cellular_barcode + "\t" + str(len(cluster.gene_counts)) + "\n")
 
     return count_matrix
 
 
 def save_dge_matrix(dge_matrix, gene_list, barcode_list, output_directory, output_file_name):
-    handler = open(output_directory + "/" + output_file_name + ".dge", "w")
+    handler = open(output_directory + "/" + output_file_name + ".txt", "w")
 
     for barcode in barcode_list:
         handler.write("\t")
@@ -87,15 +99,14 @@ def produce_dge_matrix(reads_path, out_dir, output_file_name):
     clusters = read_in_clusters(reads_path)
     # clusters = make_clusters(reads)
     clusters_umi_collapsed = collapse_cluster_umis(clusters)
+    print("umis collapsed")
     gene_list = get_gene_list(clusters_umi_collapsed)
+    print("gene list obtained")
     barcode_list = get_barcode_list(clusters_umi_collapsed)
+    print("barcode list obtained")
     dge_matrix = calculate_dge_matrix(clusters_umi_collapsed, gene_list)
+    print("matrix calculated")
     save_dge_matrix(dge_matrix, gene_list, barcode_list, out_dir, output_file_name)
-
-# clusters_path = "/Users/manuel/Desktop/cluster_out.txt"
-# out_path = "/Users/manuel/Desktop"
-# out_file_name = "expression"
-# produce_dge_matrix(clusters_path, out_dir=out_path, output_file_name=out_file_name)
 
 
 def main(cmd_args):
@@ -104,6 +115,7 @@ def main(cmd_args):
     out_file_name = cmd_args["file_name"]
 
     produce_dge_matrix(path_to_clusters, out_dir=out_put_dir, output_file_name=out_file_name)
+    print("done!!!")
 
 
 if __name__ == "__main__":

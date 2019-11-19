@@ -12,7 +12,7 @@ def get_gene_name(genes, read_id):
 
 
 def get_umi_number(read_umi_list, read_number):
-    return read_umi_list[int(read_number)-1]
+    return read_umi_list[read_number-1]
 
 
 def get_read_umi_list(umis, number_of_reads):
@@ -21,8 +21,7 @@ def get_read_umi_list(umis, number_of_reads):
     :param umis: a list that contains clustering results of UMI's. Every list entry corresponds to one cluster.
                 [ "ACTCTGCTAG\t134\t23,54,84,2,1", ... ]
     :param number_of_reads:
-    :return: {read_number:umi_cluster_number, ...}
-    The first read has index 0 (not 1)
+    :return: [umi_cluster_number, ...]  --> The first umi_cluster_number corresponds to the gene of position 1 that has been read in
     '''
     read_umi_list = [0]*number_of_reads
     for cluster_number in range(len(umis)):  # go through all umi clusters
@@ -51,23 +50,26 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
     :param genes: [gene_1, gene_2, gene45, ... ]
     '''
     handler = open(out_dir + "/" + file_name + ".txt", "w")
-    # gene_list = get_gene_name_list(genes)
-    gene_list = genes  # to be removed
+
+    gene_list = get_gene_name_list(genes)
     no_reads = get_number_of_reads(gene_list)
     read_umi_list = get_read_umi_list(umis, no_reads)
 
     for cluster in barcodes:
         clust = cluster.split("\t")
+        # print(clust)  --> ['GAGCTGAAAAAGGAGCGTCGTAGA', '1', '979855']
         cluster_name = clust[0]
         cluster_size = clust[1]
         handler.write(cluster_name + "\t" + str(cluster_size) + "\t")
 
-        read_numbers = clust[2].split(",")
+        read_numbers = clust[2].split(",")  # line numbers of clustered barcode reads
+
         no_reads = len(read_numbers)
 
         for read in range(no_reads):
             read_no = int(read_numbers[read])
-            handler.write(get_gene_name(gene_list, read_no) + ',' + str(get_umi_number(read_umi_list, read_no)))
+            # print(get_gene_name(gene_list, read_no) + " ----------- " + str(get_umi_number(read_umi_list, read_no)))
+            handler.write(get_gene_name(gene_list, read_no) + ',' + str(get_umi_number(read_umi_list, read_no)))     # TROUBLE ZONE
 
             if read < no_reads-1:
                 handler.write(",")
@@ -89,6 +91,7 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
 #
 # construct_cluster_umi_file(barcodes, umis, artifical_gene_list, out_dir=path_to_out, file_name="cluster_out")
 
+
 def main(cmd_args):
     path_to_barcodes = cmd_args['cbc_clusters']
     barcodes = read_from_file(input_file=path_to_barcodes, file_type="txt")
@@ -99,14 +102,14 @@ def main(cmd_args):
     path_to_genes = cmd_args['gene_names']
     genes = read_from_file(input_file=path_to_genes, file_type="txt")
 
-    artifical_gene_list = [""] * 1000000
-    for i in range(1000000):
-        artifical_gene_list[i] = "gene_" + str(i)
+    # artifical_gene_list = [""] * 1000000
+    # for i in range(1000000):
+    #     artifical_gene_list[i] = "gene_" + str(i)
 
     output_file_name = cmd_args["file_name"]
     out_put_dir = cmd_args["out_dir"]
 
-    construct_cluster_umi_file(barcodes, umis, artifical_gene_list, out_dir=out_put_dir, file_name=output_file_name)
+    construct_cluster_umi_file(barcodes, umis, genes, out_dir=out_put_dir, file_name=output_file_name)
 
 
 if __name__ == "__main__":

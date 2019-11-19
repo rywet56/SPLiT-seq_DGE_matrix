@@ -6,7 +6,7 @@ scripts="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/
 
 barcode_clusters="/Users/manuel/Desktop/clustered_barcodes.txt"
 umi_clusters="/Users/manuel/Desktop/clustered_UMIs.txt"
-genes="/Users/manuel/Desktop/sorted.txt"
+genes="/Users/manuel/Desktop/sorted_gene_names.txt"
 out="/Users/manuel/Desktop"
 name="cluster_out"
 
