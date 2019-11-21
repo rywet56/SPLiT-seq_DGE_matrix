@@ -1,4 +1,5 @@
 from tools.file_input_output import read_from_file, write_to_fastq
+from tools.utils import get_cmd_args
 
 
 def get_bcs_umis_queryname(path_to_bc_reads):
@@ -39,7 +40,17 @@ def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_fi
     write_to_fastq(fastq_list=bcs, output_directory=out_dir, output_file_name=umi_out_filename, mode="write")
 
 
-extract_bc_umi_to_fastq("/Users/manuel/Desktop/bowtie_strategy/SRR6750059_2_1mio.fastq",
-                        "/Users/manuel/Desktop/bowtie_strategy",
-                        "extracted_bcs",
-                        "extracted_umis")
+# extract_bc_umi_to_fastq("/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/SRR6750059_2",
+#                         "/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs",
+#                         "extracted_bcs",
+#                         "extracted_umis")
+
+def main(cmd_args):
+    extract_bc_umi_to_fastq("/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/SRR6750059_2.fastq",
+                            "/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs",
+                            "extracted_bcs",
+                            "extracted_umis")
+
+
+if __name__ == "__main__":
+    main(get_cmd_args())
