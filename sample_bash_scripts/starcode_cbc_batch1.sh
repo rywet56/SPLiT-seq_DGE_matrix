@@ -1,12 +1,12 @@
-inp="/Users/manuel/Desktop/filtered_bc_reads_1mio.txt"
-out="/Users/manuel/Desktop/clustered_barcodes.txt"
+inp="/Users/manuel/Desktop/bowtie_strategy/selected_barcodes.txt"
+#inp="/Users/manuel/Desktop/bowtie_strategy/test.txt"
+out="/Users/manuel/Desktop/bowtie_strategy/clustered_barcodes.txt"
 
 starcode \
      --threads 4 \
      --input $inp \
      --output $out \
-     -d 4 \
+     -d 1 \
      -r 1 \
-     --seq-id
-     
-#     --print-clusters
+     --seq-id \
+     --print-clusters

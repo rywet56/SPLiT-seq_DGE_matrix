@@ -75,6 +75,7 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
                 handler.write(",")
         handler.write("\n")
 
+    print("number of clusters: " + str(len(barcodes)))
 # path_to_barcodes = "/Users/manuel/Desktop/clustered_barcodes.txt"
 # path_to_umis = "/Users/manuel/Desktop/clustered_UMIs.txt"
 # path_to_genes = "/Users/manuel/Desktop/sorted.txt"

@@ -39,6 +39,7 @@ def write_to_fastq(fastq_list, output_directory, output_file_name, mode="write")
         handler = open(output_directory + "/" + output_file_name + ".fastq", "a")
 
     for read in fastq_list:
+        # print(read[0])
         handler.write("@" + read[0] + "\n")
         handler.write(read[1] + "\n")
         handler.write("+\n")

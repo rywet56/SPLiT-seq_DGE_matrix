@@ -58,6 +58,15 @@ def make_barcode_combinations(bc1_path, bc2_path, bc3_path):
 # bc3_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r3barcodes.fasta"
 # output_directory = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcode_reference"
 # nt_sequence_list_to_file(barcode_combinations, output_directory, "barcode_combinations", "txt")
+def bc_combinations_to_fasta(barcode_combinations, out_put_dir, out_filename):
+    handler = open(out_put_dir + "/" + out_filename + ".fasta", 'w')
+    chromosome = 0
+    for comb in barcode_combinations:
+        handler.write(">" + str(chromosome))
+        handler.write("\n")
+        handler.write(str(comb))
+        handler.write("\n")
+        chromosome += 1
 
 
 def main(cmd_args):
@@ -68,6 +77,7 @@ def main(cmd_args):
 
     barcode_combinations = make_barcode_combinations(bc1_path, bc2_path, bc3_path)
     write_to_txt(barcode_combinations, out_put_dir, "barcode_combinations")
+    bc_combinations_to_fasta(barcode_combinations, out_put_dir, "barcode_combinations")
 
 
 if __name__ == "__main__":

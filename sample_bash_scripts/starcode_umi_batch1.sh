@@ -1,4 +1,4 @@
-inp="/Users/manuel/Desktop/filtered_UMIs_1mio.txt"
+inp="/Users/manuel/Desktop/filtered_UMIs_2mio.txt"
 out="/Users/manuel/Desktop/clustered_UMIs.txt"
 
 starcode \

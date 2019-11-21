@@ -4,7 +4,7 @@ meta_data=""
 scripts="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/SPLiT-seq_DGE_matrix"
 
 
-clusters="/Users/manuel/Desktop/cluster_out_test.txt"
+clusters="/Users/manuel/Desktop/cluster_out.txt"
 out="/Users/manuel/Desktop"
 name="expression"
 
