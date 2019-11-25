@@ -27,6 +27,7 @@ def extract_barcodes_to_txt(fastq_file, output_directory, output_file_name):
 
 def write_to_txt(input_list, output_directory, output_file_name):
     handler = open(output_directory + "/" + output_file_name + ".txt", "w")
+
     for read in input_list:
         handler.write(read + "\n")
     handler.close()

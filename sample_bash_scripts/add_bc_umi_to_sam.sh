@@ -2,10 +2,10 @@
 
 scripts="/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/SPLiT-seq_DGE_matrix"
 
-path_to_bc="/Users/manuel/Desktop/filtered_bc_reads_1mio.txt"
-path_to_umi="/Users/manuel/Desktop/filtered_UMIs_1mio.txt"
-sam_in_path="/Users/manuel/Desktop/genfun_tagged.sam"
-sam_out_path="/Users/manuel/Desktop"
+path_to_bc="/Users/manuel/Desktop/bowtie_strategy/selected_barcodes.txt"
+path_to_umi="/Users/manuel/Desktop/bowtie_strategy/selected_umis.txt"
+sam_in_path="/Users/manuel/Desktop/bowtie_strategy/genfun_tagged.sam"
+sam_out_path="/Users/manuel/Desktop/bowtie_strategy/drop_seq_dge_matrix"
 file_name="out_bc_umi.sam"
 
 

@@ -1,5 +1,5 @@
 from tools.file_input_output import read_from_file, write_to_fastq
-from tools.utils import get_cmd_args
+from tools.utils import get_cmd_args, get_resources_used
 
 
 def get_bcs_umis_queryname(path_to_bc_reads):
@@ -25,7 +25,7 @@ def get_bcs_umis_queryname(path_to_bc_reads):
 
     return bc_list, umi_list
 
-
+@get_resources_used
 def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_filename):
     '''
     Extracts the barcodes and umis from bc_read.fastq file. Then saves them in two separate .fastq files
@@ -37,7 +37,7 @@ def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_fi
     '''
     bcs, umis = get_bcs_umis_queryname(path_to_bc_reads=path_to_reads)
     write_to_fastq(fastq_list=bcs, output_directory=out_dir, output_file_name=bc_out_filename, mode="write")
-    write_to_fastq(fastq_list=bcs, output_directory=out_dir, output_file_name=umi_out_filename, mode="write")
+    write_to_fastq(fastq_list=umis, output_directory=out_dir, output_file_name=umi_out_filename, mode="write")
 
 
 # extract_bc_umi_to_fastq("/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/SRR6750059_2",
@@ -46,10 +46,15 @@ def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_fi
 #                         "extracted_umis")
 
 def main(cmd_args):
-    extract_bc_umi_to_fastq("/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/SRR6750059_2.fastq",
-                            "/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs",
-                            "extracted_bcs",
-                            "extracted_umis")
+    path_to_reads = cmd_args["bc_reads"]
+    out_dir = cmd_args["out_dir"]
+    bc_out_filename = cmd_args["cbc_out_name"]
+    umi_out_filename = cmd_args["umi_out_name"]
+
+    extract_bc_umi_to_fastq(path_to_reads=path_to_reads,
+                            out_dir=out_dir,
+                            bc_out_filename=bc_out_filename,
+                            umi_out_filename=umi_out_filename)
 
 
 if __name__ == "__main__":

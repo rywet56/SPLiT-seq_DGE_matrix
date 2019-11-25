@@ -85,6 +85,8 @@ def get_cmd_args():
     parser.add_argument('--umi_clusters')
     parser.add_argument('--gene_names')
     parser.add_argument('--clusters')
+    parser.add_argument('--umi_out_name')
+    parser.add_argument('--cbc_out_name')
     args = parser.parse_args()
     # args_dic = vars(args)
 

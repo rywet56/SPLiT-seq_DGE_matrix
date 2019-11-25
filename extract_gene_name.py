@@ -16,17 +16,22 @@ def write_gene_names_to_file(path_to_sam, out_dir, file_name):
 
 
 # some gn tags have two genes. intronic mappings can be ignored
-    unique_mappings = 0
-    not_unique = 0
     no_mapping = 0
+    accepted_genes = 0
+
     for entry in sorted_sam:
         if entry.has_tag('gn'):  # did this read align anywhere in the genome?
-            gene_names = entry.get_tag('gn').split(',')
-            if len(gene_names) < 2:
-                unique_mappings += 1
+            gene_names = entry.get_tag('gn').split(',')  # get values for 'gn' tag of this read
+            gene_function = entry.get_tag('gf').split(',')  # get values for 'gf' tag of this read
+            accepted_functions = ["CODING", "UTR"]
+            intersection = set(gene_function).intersection(accepted_functions)
+            # if len(gene_names) < 2:  # test length of value for 'gn' tag for this read
+            #     unique_mappings += 1
+            #     handler.write(entry.get_tag('gn'))
+            if len(intersection) != 0 and len(gene_names) < 2:
                 handler.write(entry.get_tag('gn'))
+                accepted_genes += 1
             else:
-                not_unique += 1
                 handler.write('no_gene')
         else:
             no_mapping += 1
@@ -34,17 +39,11 @@ def write_gene_names_to_file(path_to_sam, out_dir, file_name):
 
         handler.write("\n")
 
-#     for entry in sorted_sam:
-#         if entry.has_tag('gn'):
-#             handler.write(entry.get_tag('gn'))
-#         else:
-#            handler.write('no_gene')
-#         handler.write("\n")
-
     handler.close()
-    print("unique mappings: " + str(unique_mappings))
-    print("not unique mappings: " + str(not_unique))
-    print("no mapping: " + str(no_mapping))
+    print("accepted mappings: " + str(accepted_genes))
+    # print("unique mappings: " + str(unique_mappings))
+    # print("not unique mappings: " + str(not_unique))
+    # print("no mapping: " + str(no_mapping))
 
 
 def main(cmd_args):

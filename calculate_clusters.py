@@ -65,32 +65,15 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
         read_numbers = clust[2].split(",")  # line numbers of clustered barcode reads
 
         no_reads = len(read_numbers)
-
         for read in range(no_reads):
             read_no = int(read_numbers[read])
-            # print(get_gene_name(gene_list, read_no) + " ----------- " + str(get_umi_number(read_umi_list, read_no)))
-            handler.write(get_gene_name(gene_list, read_no) + ',' + str(get_umi_number(read_umi_list, read_no)))     # TROUBLE ZONE
-
+            handler.write(get_gene_name(gene_list, read_no) + ',' + str(get_umi_number(read_umi_list, read_no)))
             if read < no_reads-1:
                 handler.write(",")
+
         handler.write("\n")
 
     print("number of clusters: " + str(len(barcodes)))
-# path_to_barcodes = "/Users/manuel/Desktop/clustered_barcodes.txt"
-# path_to_umis = "/Users/manuel/Desktop/clustered_UMIs.txt"
-# path_to_genes = "/Users/manuel/Desktop/sorted.txt"
-# path_to_out = "/Users/manuel/Desktop"
-#
-# barcodes = read_from_file(input_file=path_to_barcodes, file_type="txt")
-# umis = read_from_file(input_file=path_to_umis, file_type="txt")
-# genes = read_from_file(input_file=path_to_genes, file_type="txt")
-#
-# artifical_gene_list = [""]*1000000
-#
-# for i in range(1000000):
-#     artifical_gene_list[i] = "gene_" + str(i)
-#
-# construct_cluster_umi_file(barcodes, umis, artifical_gene_list, out_dir=path_to_out, file_name="cluster_out")
 
 
 def main(cmd_args):
@@ -103,9 +86,11 @@ def main(cmd_args):
     path_to_genes = cmd_args['gene_names']
     genes = read_from_file(input_file=path_to_genes, file_type="txt")
 
-    # artifical_gene_list = [""] * 1000000
-    # for i in range(1000000):
-    #     artifical_gene_list[i] = "gene_" + str(i)
+    # gene_no = 0
+    # for gen in genes:
+    #     if gen != "no_gene":
+    #         gene_no += 1
+    # print(gene_no)
 
     output_file_name = cmd_args["file_name"]
     out_put_dir = cmd_args["out_dir"]

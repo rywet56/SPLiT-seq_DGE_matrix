@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 inp="/Users/manuel/Desktop/bowtie_strategy/selected_barcodes.txt"
 #inp="/Users/manuel/Desktop/bowtie_strategy/test.txt"
 out="/Users/manuel/Desktop/bowtie_strategy/clustered_barcodes.txt"
@@ -8,5 +10,6 @@ starcode \
      --output $out \
      -d 1 \
      -r 1 \
-     --seq-id \
-     --print-clusters
+     --seq-id
+     
+#     --print-clusters
