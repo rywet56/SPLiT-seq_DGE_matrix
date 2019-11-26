@@ -4,21 +4,39 @@ from cluster import Cluster
 
 
 def read_in_clusters(path_to_cluster_file):
-    '''
-
-    '''
     clusters_raw = read_from_file(input_file=path_to_cluster_file, file_type="txt")
     no_clusters = get_number_of_clusters(clusters_raw)
     clusters = []
+    print("number of clusters: " + str(no_clusters))
     for cluster_no in range(no_clusters):
         clusters.append(Cluster())
-
     print("empty clusters formed")
+
     for cluster_no in range(no_clusters):
         cluster = clusters_raw[cluster_no].split('\t')
-        clusters[cluster_no].add_reads(bc_seq=cluster[0], cluster_size=cluster[1], gene_umi_list=cluster[2])
-
+        # print(cluster)
+        if len(cluster) == 3:
+            clusters[cluster_no].add_reads(bc_seq=cluster[0], cluster_size=cluster[1], gene_umi_list=cluster[2])
+        else:
+            clusters[cluster_no].add_reads(bc_seq=cluster[0], cluster_size=0, gene_umi_list="")
     print("clusters populated")
+
+    # # to be removed
+    # total = 0
+    # accepted_reads = 0
+    # no_no_genes = 0
+    # for cluster in clusters:
+    #     total += len(cluster.umis)
+    #     for read in cluster.gene_names:
+    #         if read != "no_gene":
+    #             accepted_reads += 1
+    #         else:
+    #             no_no_genes += 1
+    #
+    # print("number of accepted reads: " + str(accepted_reads))
+    # print("total reads: " + str(total))
+    # print("number of no_genes: " + str(no_no_genes))
+
     return clusters
 
 
@@ -44,8 +62,17 @@ def get_gene_list(clusters):
     return gene_list
 
 
-def get_number_of_genes(gene_list):
-    return len(gene_list)
+def get_unique_genes(gene_list):
+    '''
+    Returns the numbner of unique genes in gene_list.
+    :param gene_list:
+    :return:
+    '''
+    unique_genes_list = []
+    for gene in gene_list:
+        if gene not in unique_genes_list:
+            unique_genes_list.append(gene)
+    return unique_genes_list, len(unique_genes_list)
 
 
 def collapse_cluster_umis(clusters):
@@ -54,7 +81,7 @@ def collapse_cluster_umis(clusters):
     i = 0
     for cluster in clusters:
         # collapse umis
-        cluster.collapse_umis()
+        cluster.collapse_umis()  # --> clusters that have no genes will have an empty gene_counts dic
 
         # get count information
         gene_counts = 0
@@ -70,20 +97,22 @@ def collapse_cluster_umis(clusters):
 def calculate_dge_matrix(clusters, gene_list, counts_per_cluster, umis_per_cluster, out_dir):
     count_matrix = []
     cluster_no = len(clusters)
-    gene_no = get_number_of_genes(gene_list)
+    unique_genes, gene_no = get_unique_genes(gene_list)  # gets unique genes and number of unique genes
+
     # generate empty count matrix of dimension gene_no x cluster_no
     for row in range(gene_no):
         count_matrix.append([0]*cluster_no)
+
     # populate count matrix
     for cluster in range(cluster_no):
-        for gene in clusters[cluster].gene_counts.items():
-            row = gene_list.index(gene[0])
+        for gene in clusters[cluster].gene_counts.items():  # interates through contents of gene_count list
+            row = unique_genes.index(gene[0])  # gets the position of the gene gene[0] in gene_list
             col = cluster
-            count_matrix[row-1][col-1] = gene[1][0]
+            count_matrix[row][col] = gene[1][0]  # gets the number of transcripts for that gene
 
     save_statistics(out_dir, clusters, counts_per_cluster, umis_per_cluster)
 
-    return count_matrix
+    return count_matrix, unique_genes
 
 
 def save_statistics(out_dir, cluster_list, counts_per_cluster, umis_per_cluster):
@@ -105,6 +134,7 @@ def save_dge_matrix(dge_matrix, gene_list, barcode_list, output_directory, outpu
         handler.write(barcode)
 
     handler.write("\n")
+
     for gene in range(len(gene_list)):
         handler.write(gene_list[gene])
         for count in dge_matrix[gene]:
@@ -127,9 +157,9 @@ def produce_dge_matrix(reads_path, out_dir, output_file_name):
     print("gene list obtained")
     barcode_list = get_barcode_list(clusters_umi_collapsed)
     print("barcode list obtained")
-    dge_matrix = calculate_dge_matrix(clusters_umi_collapsed, gene_list, counts_per_cluster, umis_per_cluster, out_dir)
+    dge_matrix, unique_genes = calculate_dge_matrix(clusters_umi_collapsed, gene_list, counts_per_cluster, umis_per_cluster, out_dir)
     print("matrix calculated")
-    save_dge_matrix(dge_matrix, gene_list, barcode_list, out_dir, output_file_name)
+    save_dge_matrix(dge_matrix, unique_genes, barcode_list, out_dir, output_file_name)
     print("DGE matrix written to file")
 
 

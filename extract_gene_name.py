@@ -6,7 +6,7 @@ from tools.utils import get_cmd_args, get_resources_used
 
 
 @get_resources_used
-def write_gene_names_to_file(path_to_sam, out_dir, file_name):
+def write_gene_names_to_file(path_to_sam, accepted_function, out_dir, file_name):
     read_list = read_from_file(file_type="sam", input_file=path_to_sam)
 
     sorted_sam = sort_sam_built_in(read_list)
@@ -16,14 +16,17 @@ def write_gene_names_to_file(path_to_sam, out_dir, file_name):
 
 
 # some gn tags have two genes. intronic mappings can be ignored
+    total = 0
     no_mapping = 0
     accepted_genes = 0
+    accepted_functions = accepted_function.split(",")
 
     for entry in sorted_sam:
+        total += 1
         if entry.has_tag('gn'):  # did this read align anywhere in the genome?
             gene_names = entry.get_tag('gn').split(',')  # get values for 'gn' tag of this read
             gene_function = entry.get_tag('gf').split(',')  # get values for 'gf' tag of this read
-            accepted_functions = ["CODING", "UTR"]
+            # accepted_functions = ["CODING", "UTR"]
             intersection = set(gene_function).intersection(accepted_functions)
             # if len(gene_names) < 2:  # test length of value for 'gn' tag for this read
             #     unique_mappings += 1
@@ -41,17 +44,16 @@ def write_gene_names_to_file(path_to_sam, out_dir, file_name):
 
     handler.close()
     print("accepted mappings: " + str(accepted_genes))
-    # print("unique mappings: " + str(unique_mappings))
-    # print("not unique mappings: " + str(not_unique))
-    # print("no mapping: " + str(no_mapping))
+    print("number of reads: " + str(total))
 
 
 def main(cmd_args):
     path_to_sam = cmd_args['sam_in']
     outdir = cmd_args['out_dir']
     filename = cmd_args['file_name']
+    accepted_functions = cmd_args['accepted_gf']
 
-    write_gene_names_to_file(path_to_sam=path_to_sam, out_dir=outdir, file_name=filename)
+    write_gene_names_to_file(path_to_sam=path_to_sam, accepted_function=accepted_functions, out_dir=outdir, file_name=filename)
 
 
 if __name__ == "__main__":

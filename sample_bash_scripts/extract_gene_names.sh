@@ -13,4 +13,5 @@ name="sorted_gene_names"
 python3 $scripts/extract_gene_name.py \
     --sam_in $sam_file \
     --out_dir $out \
-    --file_name $name
+    --file_name $name \
+    --accepted_gf "CODING,UTR,INTERGENIC,INTRONIC"

@@ -4,6 +4,7 @@ import argparse
 import os
 import psutil
 
+
 def calculate_runtime(func):
     def wrapper(*args, **kwargs):
         start = time.time()
@@ -87,6 +88,7 @@ def get_cmd_args():
     parser.add_argument('--clusters')
     parser.add_argument('--umi_out_name')
     parser.add_argument('--cbc_out_name')
+    parser.add_argument('--accepted_gf')
     args = parser.parse_args()
     # args_dic = vars(args)
 

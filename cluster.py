@@ -66,6 +66,7 @@ class Cluster:
         # print("-----------------------------------")
 
     def collapse_umis(self):
+
         for i in range(len(self.gene_names)):
             if self.gene_names[i] in self.gene_counts:  # is gene already listed?
                 if self.umis[i] not in self.gene_counts[self.gene_names[i]][1]:  # check existence of UMI for this gene

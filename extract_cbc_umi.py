@@ -25,6 +25,7 @@ def get_bcs_umis_queryname(path_to_bc_reads):
 
     return bc_list, umi_list
 
+
 @get_resources_used
 def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_filename):
     '''
