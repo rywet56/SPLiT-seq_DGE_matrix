@@ -28,9 +28,6 @@ def write_gene_names_to_file(path_to_sam, accepted_function, out_dir, file_name)
             gene_function = entry.get_tag('gf').split(',')  # get values for 'gf' tag of this read
             # accepted_functions = ["CODING", "UTR"]
             intersection = set(gene_function).intersection(accepted_functions)
-            # if len(gene_names) < 2:  # test length of value for 'gn' tag for this read
-            #     unique_mappings += 1
-            #     handler.write(entry.get_tag('gn'))
             if len(intersection) != 0 and len(gene_names) < 2:
                 handler.write(entry.get_tag('gn'))
                 accepted_genes += 1
@@ -43,8 +40,8 @@ def write_gene_names_to_file(path_to_sam, accepted_function, out_dir, file_name)
         handler.write("\n")
 
     handler.close()
-    print("accepted mappings: " + str(accepted_genes))
-    print("number of reads: " + str(total))
+    print("accepted reads: " + str(accepted_genes))
+    print("total reads: " + str(total))
 
 
 def main(cmd_args):
