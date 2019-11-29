@@ -1,5 +1,6 @@
 import pysam
-
+import os
+import psutil
 from tools.utils import QSanger_to_Phred33
 
 

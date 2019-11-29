@@ -80,18 +80,18 @@ def construct_cluster_umi_file(barcodes, umis, genes, out_dir, file_name):
         handler.write("\n")
 
     # some check --> to be removed later
-    no_genes = 0
-    no_no_gene = 0
-    for gen in genes:
-        if gen != "no_gene":
-            no_genes += 1
-        else:
-            no_no_gene += 1
-
-    print("number of clusters: " + str(len(barcodes)))
-    print("number of reads: " + str(len(genes)))
-    print("number of accepted reads: " + str(no_genes))
-    print("number of no_genes: " + str(no_no_gene))
+    # no_genes = 0
+    # no_no_gene = 0
+    # for gen in genes:
+    #     if gen != "no_gene":
+    #         no_genes += 1
+    #     else:
+    #         no_no_gene += 1
+    #
+    # print("number of clusters: " + str(len(barcodes)))
+    # print("number of reads: " + str(len(genes)))
+    # print("number of accepted reads: " + str(no_genes))
+    # print("number of no_genes: " + str(no_no_gene))
 
 
 def main(cmd_args):

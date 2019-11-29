@@ -26,7 +26,6 @@ def write_gene_names_to_file(path_to_sam, accepted_function, out_dir, file_name)
         if entry.has_tag('gn'):  # did this read align anywhere in the genome?
             gene_names = entry.get_tag('gn').split(',')  # get values for 'gn' tag of this read
             gene_function = entry.get_tag('gf').split(',')  # get values for 'gf' tag of this read
-            # accepted_functions = ["CODING", "UTR"]
             intersection = set(gene_function).intersection(accepted_functions)
             if len(intersection) != 0 and len(gene_names) < 2:
                 handler.write(entry.get_tag('gn'))
