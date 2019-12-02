@@ -1,6 +1,7 @@
 from tools.file_input_output import read_from_file, write_to_fastq
 from tools.utils import get_cmd_args, get_resources_used
 from memory_profiler import profile
+from Bio import SeqIO
 
 
 def get_bcs_umis_queryname(path_to_bc_reads):
@@ -44,8 +45,14 @@ def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_fi
     print(umi_out_filename)
 
     bcs, umis = get_bcs_umis_queryname(path_to_bc_reads=path_to_reads)
+
     write_to_fastq(fastq_list=bcs, output_directory=out_dir, output_file_name=bc_out_filename, mode="write")
     write_to_fastq(fastq_list=umis, output_directory=out_dir, output_file_name=umi_out_filename, mode="write")
+
+
+# def extract_cbc_umi_directly(path_to_reads, out_dir, bc_out_filename, umi_out_filename):
+#     input_list = [[str(record.description), str(record.seq), record.letter_annotations["phred_quality"]]
+#                   for record in SeqIO.parse(path_to_reads, "fastq")]
 
 
 def main(cmd_args):
@@ -58,6 +65,11 @@ def main(cmd_args):
                             out_dir=out_dir,
                             bc_out_filename=bc_out_filename,
                             umi_out_filename=umi_out_filename)
+
+    # extract_cbc_umi_directly(path_to_reads=path_to_reads,
+    #                         out_dir=out_dir,
+    #                         bc_out_filename=bc_out_filename,
+    #                         umi_out_filename=umi_out_filename)
 
     # from memory_profiler import memory_usage
     # mem = memory_usage((extract_bc_umi_to_fastq, {path_to_reads:path_to_reads,
