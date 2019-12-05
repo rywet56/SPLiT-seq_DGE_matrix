@@ -1,5 +1,0 @@
-CMDLINE /Users/manuel/anaconda3/bin/python /Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/SPLiT-seq_DGE_matrix/extract_cbc_umi.py --bc_reads /Users/manuel/Desktop/bowtie_strategy/SRR6750059_2_1mio.fastq --out_dir /Users/manuel/Desktop/bowtie_strategy --cbc_out_name extracted_cbcs --umi_out_name extracted_umis
-MEM 0.011719 1574933413.8623
-MEM 16.230469 1574933413.9659
-MEM 27.097656 1574933414.0699
-MEM 36.882812 1574933414.1719

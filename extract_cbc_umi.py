@@ -1,5 +1,5 @@
 from tools.file_input_output import read_from_file, write_to_fastq
-from tools.utils import get_cmd_args, get_resources_used
+from tools.utils import get_cmd_args, get_resources_used, QSanger_to_Phred33
 from memory_profiler import profile
 from Bio import SeqIO
 
@@ -11,8 +11,8 @@ def get_bcs_umis_queryname(path_to_bc_reads):
     :return: [(query_name, barcode_seq, qual_score, umi_seq, umi_score),(),...]
     """
     bc_reads_list = read_from_file(input_file=path_to_bc_reads, file_type="fastq_all")
-    bc_list = [None]*len(bc_reads_list)
-    umi_list = [None]*len(bc_reads_list)
+    bc_list = [None] * len(bc_reads_list)
+    umi_list = [None] * len(bc_reads_list)
 
     i = 0
     for i, read in enumerate(bc_reads_list):
@@ -23,14 +23,14 @@ def get_bcs_umis_queryname(path_to_bc_reads):
         umi_qual = read[2][0:10]
         bc_list[i] = [query_name, bc, bc_qual]
         umi_list[i] = [query_name, umi, umi_qual]
-        #i += 1
+        # i += 1
 
     return bc_list, umi_list
 
 
-@get_resources_used
+# @get_resources_used
 # @profile
-def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_filename):
+def extract_bc_umi_to_fastq(path_to_reads, out_dir, bc_out_filename, umi_out_filename):
     '''
     Extracts the barcodes and umis from bc_read.fastq file. Then saves them in two separate .fastq files
     :param path_to_reads:
@@ -46,9 +46,27 @@ def extract_bc_umi_to_fastq(path_to_reads, out_dir,  bc_out_filename, umi_out_fi
     write_to_fastq(fastq_list=umis, output_directory=out_dir, output_file_name=umi_out_filename, mode="write")
 
 
-# def extract_cbc_umi_directly(path_to_reads, out_dir, bc_out_filename, umi_out_filename):
-#     input_list = [[str(record.description), str(record.seq), record.letter_annotations["phred_quality"]]
-#                   for record in SeqIO.parse(path_to_reads, "fastq")]
+@get_resources_used
+# @profile
+def extract_cbc_umi_to_fastq_directly(path_to_reads, out_dir, bc_out_filename, umi_out_filename):
+    write_bcs = open(out_dir + "/" + bc_out_filename + ".fastq", "w")
+    write_umis = open(out_dir + "/" + umi_out_filename + ".fastq", "w")
+
+    for record in SeqIO.parse(path_to_reads, "fastq"):
+        # get read quality - only has to be done once
+        read_qual = ''.join(QSanger_to_Phred33(record.letter_annotations["phred_quality"]))
+
+        # extracs CBC and write to file
+        write_bcs.write("@" + str(record.description) + "\n")
+        write_bcs.write(str(record.seq[10:18] + record.seq[48:56] + record.seq[86:94]) + "\n")
+        write_bcs.write("+\n")
+        write_bcs.write(str(read_qual[10:18] + read_qual[48:56] + read_qual[86:94]) + "\n")
+
+        # extract UMI and write to file
+        write_umis.write("@" + str(record.description) + "\n")
+        write_umis.write(str(record.seq[0:10]) + "\n")
+        write_umis.write("+\n")
+        write_umis.write(str(read_qual[0:10]) + "\n")
 
 
 def main(cmd_args):
@@ -57,22 +75,19 @@ def main(cmd_args):
     bc_out_filename = cmd_args["cbc_out_name"]
     umi_out_filename = cmd_args["umi_out_name"]
 
-    extract_bc_umi_to_fastq(path_to_reads=path_to_reads,
-                            out_dir=out_dir,
-                            bc_out_filename=bc_out_filename,
-                            umi_out_filename=umi_out_filename)
-
-    # extract_cbc_umi_directly(path_to_reads=path_to_reads,
+    # extract_bc_umi_to_fastq(path_to_reads=path_to_reads,
     #                         out_dir=out_dir,
     #                         bc_out_filename=bc_out_filename,
     #                         umi_out_filename=umi_out_filename)
+    # 44 seconds
+    # 1231.9 MiB
 
-    # from memory_profiler import memory_usage
-    # mem = memory_usage((extract_bc_umi_to_fastq, {path_to_reads:path_to_reads,
-    #                         out_dir:out_dir,
-    #                         bc_out_filename:bc_out_filename,
-    #                         umi_out_filename:umi_out_filename}))
-    # print(mem)
+    extract_cbc_umi_to_fastq_directly(path_to_reads=path_to_reads,
+                                      out_dir=out_dir,
+                                      bc_out_filename=bc_out_filename,
+                                      umi_out_filename=umi_out_filename)
+    # 54 seconds
+    # 42.7 MiB
 
 
 if __name__ == "__main__":

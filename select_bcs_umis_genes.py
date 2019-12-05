@@ -1,6 +1,7 @@
 from filter_barcodes_advanced import get_number_of_low_quality_bases
 from tools.file_input_output import read_from_file, write_to_fastq, write_to_txt
 from tools.utils import get_resources_used, get_cmd_args
+from memory_profiler import profile
 
 
 def get_aligned_selected_reads(path_to_sam_file, barcode_comb_list):
@@ -94,6 +95,7 @@ def select_bcs_umis_gens(path_to_umis_fastq, path_to_gen_fastq, aligned_sel_bcs)
 #     aligned_reads = get_aligned_reads(path_to_sam_file)
 #     sam_to_fastq(aligned_reads, out_dir, out_filename)
 @get_resources_used
+# @profile
 def aligned_reads_to_txt(path_to_cbcs_sam, path_to_bc_comb, path_to_umis_fastq, path_to_gen_fastq, out_dir, out_filename_bcs,
                          out_filename_umis, out_filename_gen):
     # get list that maps bc_combs to "chrosomsome numbers"
@@ -108,6 +110,7 @@ def aligned_reads_to_txt(path_to_cbcs_sam, path_to_bc_comb, path_to_umis_fastq, 
     sel_items_to_file(sel_gens, out_dir, out_filename_gen, file_type="fastq")
 
 
+
 # aligned_reads_to_txt(path_to_cbcs_sam="/Users/manuel/Desktop/bowtie_strategy/aligned_bcs.sam",
 #                      path_to_bc_comb="/Users/manuel/Desktop/bowtie_strategy/barcode_combinations.fasta",
 #                      path_to_umis_fastq="/Users/manuel/Desktop/bowtie_strategy/extracted_umis.fastq",
@@ -116,6 +119,7 @@ def aligned_reads_to_txt(path_to_cbcs_sam, path_to_bc_comb, path_to_umis_fastq, 
 #                      out_filename_bcs="selected_barcodes",
 #                      out_filename_umis="selected_umis",
 #                      out_filename_gen="selected_gens")
+
 
 def main(cmd_args):
     path_to_cbcs_sam = cmd_args["sam_in"]

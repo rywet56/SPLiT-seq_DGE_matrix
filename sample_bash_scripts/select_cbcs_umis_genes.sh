@@ -11,6 +11,8 @@ out_filename_bcs="selected_barcodes"
 out_filename_umis="selected_umis"
 out_filename_gen="selected_gens"
 
+
+#mprof run --include-children $scripts/select_bcs_umis_genes.py
 python3 $scripts/select_bcs_umis_genes.py \
      --sam_in $path_to_cbcs_sam \
      --cbc_comb $path_to_bc_comb \
@@ -21,3 +23,4 @@ python3 $scripts/select_bcs_umis_genes.py \
      --umi_out_name $out_filename_umis \
      --gene_out_name $out_filename_gen
      
+#mprof plot
