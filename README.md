@@ -1,4 +1,6 @@
 # SPLiT-seq DGE matrix generation
+A walkthrough of the current version of the pipeline can be found here:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--->  [sample walkthrough of SPLiT-seq pipeline](https://github.com/rywet56/SPLiT-seq_DGE_matrix/blob/master/sample_bash_scripts/SPLiT-seq-pipeline_walk_through.ipynb)  <---
 
 ## Why this repo?
 The ability to describe gene expression levels at the level of single cells is becoming more and more important. That is because it allows us to describe the heterogenety of cells on the level of transcriptomes. This detailed description of differences among cells (of the same or different cell type) is crucial to better understand how different cell types and functions are defined. The knowledge gained through scRNA-seq experiments will help us to understand the development of disease in more detail and hopefully enable us to re-enigneer cells functioning "out of order" and thereby heal disease.
