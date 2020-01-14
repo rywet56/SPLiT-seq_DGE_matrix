@@ -46,7 +46,7 @@ def main(cmd_args):
     sam_in_path = cmd_args['sam_in']
     path_to_umi = cmd_args['umi_in']
     path_to_bc = cmd_args['bc_in']
-    add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name, cbc_range=[9,24], umi_range=[0,10])
+    add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name, cbc_range=[9,24], umi_range=[1,10])
 
 
 if __name__ == "__main__":
