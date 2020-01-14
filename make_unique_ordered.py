@@ -11,18 +11,22 @@ def get_unique_reads(sam_in_path, sam_out_path, file_name):
     sam_out_path += "/" + file_name
 
     sam_in = pysam.AlignmentFile(sam_in_path, "r")
+
     sam_out = pysam.AlignmentFile(sam_out_path, "w", template=sam_in)
 
     # sort input sam file according to quryname order
     sam_list = sort_sam(sam_in)
-
+    print("he")
     i = 0
     total_reads = len(sam_list)
     unique_reads = 0
     for read in sam_list:
-        if read[0].get_tag('HI') <= 1:
+        if read[0].has_tag('HI'):
+            if read[0].get_tag('HI') <= 1:
+                sam_out.write(read[0])
+                unique_reads += 1
+        else:  # for bowtie aligned reads that do not by default have a HI tag
             sam_out.write(read[0])
-            unique_reads += 1
         i += 1
 
     print("total reads: " + str(total_reads))
