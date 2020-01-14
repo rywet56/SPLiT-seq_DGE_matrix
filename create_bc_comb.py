@@ -7,9 +7,11 @@ def extract_barcodes(some_list, UMI=False):
     if UMI:
         for barcode in some_list:
             extracted_barcodes.append(barcode[32:40])
+            print(barcode)
     else:
         for barcode in some_list:
             extracted_barcodes.append(barcode[15:23])
+            print(barcode)
     return extracted_barcodes
 
 

@@ -98,6 +98,11 @@ def read_from_file(*args, **kwargs):
                 read_seq = str(record.seq)
                 read_qual = record.letter_annotations["phred_quality"]
                 input_list.append((read_name, read_seq, read_qual))
+        # import only seqeunces of fastq file
+        elif kwargs["file_type"] == "fastq_seq":
+            from Bio import SeqIO
+            for record in SeqIO.parse(input_file, "fastq"):
+                input_list.append(str(record.seq))
 
         elif kwargs["file_type"] == "sam":
             """
