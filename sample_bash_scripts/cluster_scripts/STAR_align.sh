@@ -7,7 +7,7 @@
 #$ -pe smp 8
 
 
-INPUT_fastq="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/selected_cbcs_umis_genes/selected_gens.fastq"
+INPUT_fastq="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/selected_gens.fastq"
 ANNOTATED_GENOME="/fast/AG_Ohler/manuel/splitseq/mus_musculus_metadata_mm10/annotated_genome_sjdbO_65"
 out_dir="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/aligned_sel_genes/aligned_sel_genes_2"
 
@@ -17,9 +17,8 @@ STAR \
      --genomeDir $ANNOTATED_GENOME \
      --readFilesIn $INPUT_fastq \
      --outFileNamePrefix $out_dir \
-     --outSAMunmapped Within \
+     --outSAMunmapped Within \  # ensure that reads that could not be mapped are listed
      --outFilterScoreMinOverLread 0.33 \
-     --outFilterMatchNminOverLread 0.33
-     
-#--outSAMorder PairedKeepInputOrder
+     --outFilterMatchNminOverLread 0.33 \
+     --outSAMorder PairedKeepInputOrder  # output aligned reads ordered by coordinate
 

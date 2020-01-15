@@ -131,14 +131,23 @@ def main(cmd_args):
     out_filename_umis = cmd_args["umi_out_name"]
     out_filename_gen = cmd_args["gene_out_name"]
 
-    aligned_reads_to_txt(path_to_cbcs_sam="/Users/manuel/Desktop/bowtie_strategy/aligned_bcs.sam",
-                         path_to_bc_comb="/Users/manuel/Desktop/bowtie_strategy/barcode_combinations.fasta",
-                         path_to_umis_fastq="/Users/manuel/Desktop/bowtie_strategy/extracted_umis.fastq",
-                         path_to_gen_fastq="/Users/manuel/Desktop/bowtie_strategy/SRR6750059_1_1mio.fastq",
-                         out_dir="/Users/manuel/Desktop/bowtie_strategy",
-                         out_filename_bcs="selected_barcodes",
-                         out_filename_umis="selected_umis",
-                         out_filename_gen="selected_gens")
+    aligned_reads_to_txt(path_to_cbcs_sam=path_to_cbcs_sam,
+                         path_to_bc_comb=path_to_bc_comb,
+                         path_to_umis_fastq=path_to_umis_fastq,
+                         path_to_gen_fastq=path_to_gen_fastq,
+                         out_dir=out_dir,
+                         out_filename_bcs=out_filename_bcs,
+                         out_filename_umis=out_filename_umis,
+                         out_filename_gen=out_filename_gen)
+
+    # aligned_reads_to_txt(path_to_cbcs_sam="/Users/manuel/Desktop/bowtie_strategy/aligned_bcs.sam",
+    #                      path_to_bc_comb="/Users/manuel/Desktop/bowtie_strategy/barcode_combinations.fasta",
+    #                      path_to_umis_fastq="/Users/manuel/Desktop/bowtie_strategy/extracted_umis.fastq",
+    #                      path_to_gen_fastq="/Users/manuel/Desktop/bowtie_strategy/SRR6750059_1_1mio.fastq",
+    #                      out_dir="/Users/manuel/Desktop/bowtie_strategy",
+    #                      out_filename_bcs="selected_barcodes",
+    #                      out_filename_umis="selected_umis",
+    #                      out_filename_gen="selected_gens")
 
 
 if __name__ == "__main__":

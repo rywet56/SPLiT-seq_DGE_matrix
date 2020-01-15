@@ -9,10 +9,10 @@
 
 scripts="/fast/AG_Ohler/manuel/splitseq/SPLiT-seq_DGE_matrix"
 
-path_to_cbcs_sam="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/aligned_barcodes/aligned_barcodes.sam"
+path_to_cbcs_sam="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/aligned_cbcs_ordered.sam"
 path_to_bc_comb="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/barcode_combinations.fasta"
-path_to_umis_fastq="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/extracted_cbcs_umis/extracted_umis_merged.fastq"
-path_to_gen_fastq="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/raw_reads/SRR6750059_1.fastq"
+path_to_umis_fastq="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/extracted_umis.fastq"
+path_to_gen_fastq="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/SRR6750059_1.fastq"
 out_dir="/fast/AG_Ohler/manuel/splitseq/frozen_preserved_cells_nuclei_200_UBCs/selected_cbcs_umis_genes"
 out_filename_bcs="selected_barcodes"
 out_filename_umis="selected_umis"
