@@ -21,23 +21,41 @@ def same_dimension(path_to_bc, path_to_umi, sam_in_path):
 
 def add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name, cbc_range, umi_range,
                       umi_cbc_file_type="txt"):
-    sam_in = pysam.AlignmentFile(sam_in_path, "r")
-    # tes if dimensions of input are correct
-
-    # sort input sam file according to quryname order
-    sam_list = sort_sam(sam_in)
-
     sam_out_path += "/" + file_name
-    bc_list = read_from_file(file_type=umi_cbc_file_type, input_file=path_to_bc)
-    umi_list = read_from_file(file_type=umi_cbc_file_type, input_file=path_to_umi)
+    sam_in = pysam.AlignmentFile(sam_in_path, "r")
     sam_out = pysam.AlignmentFile(sam_out_path, "w", template=sam_in)
 
+    bc_list = read_from_file(file_type=umi_cbc_file_type, input_file=path_to_bc)
+    umi_list = read_from_file(file_type=umi_cbc_file_type, input_file=path_to_umi)
+
     i = 0
-    for read in sam_list:
-        read[0].set_tag("XC", bc_list[i][cbc_range[0]-1:cbc_range[1]])
-        read[0].set_tag("XM", umi_list[i][umi_range[0]-1:umi_range[1]])
-        sam_out.write(read[0])
+    for read in sam_in.fetch():
+        read.set_tag("XC", bc_list[i][cbc_range[0]-1:cbc_range[1]])
+        read.set_tag("XM", umi_list[i][umi_range[0]-1:umi_range[1]])
+        sam_out.write(read)
         i += 1
+
+    print("Number of reads in .bam file: " + str(i))
+
+# def add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name, cbc_range, umi_range,
+#                       umi_cbc_file_type="txt"):
+#     sam_in = pysam.AlignmentFile(sam_in_path, "r")
+#     # tes if dimensions of input are correct
+#
+#     # sort input sam file according to quryname order
+#     sam_list = sort_sam(sam_in)
+#
+#     sam_out_path += "/" + file_name
+#     bc_list = read_from_file(file_type=umi_cbc_file_type, input_file=path_to_bc)
+#     umi_list = read_from_file(file_type=umi_cbc_file_type, input_file=path_to_umi)
+#     sam_out = pysam.AlignmentFile(sam_out_path, "w", template=sam_in)
+#
+#     i = 0
+#     for read in sam_list:
+#         read[0].set_tag("XC", bc_list[i][cbc_range[0]-1:cbc_range[1]])
+#         read[0].set_tag("XM", umi_list[i][umi_range[0]-1:umi_range[1]])
+#         sam_out.write(read[0])
+#         i += 1
 
 
 def main(cmd_args):
@@ -46,7 +64,7 @@ def main(cmd_args):
     sam_in_path = cmd_args['sam_in']
     path_to_umi = cmd_args['umi_in']
     path_to_bc = cmd_args['bc_in']
-    add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name, cbc_range=[9,24], umi_range=[1,10])
+    add_bc_umi_to_sam(path_to_bc, path_to_umi, sam_in_path, sam_out_path, file_name, cbc_range=[1,24], umi_range=[1,10])
 
 
 if __name__ == "__main__":
