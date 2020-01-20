@@ -35,31 +35,7 @@ def make_barcode_combinations(bc1_path, bc2_path, bc3_path):
 
     return combined_bcs
 
-# delete after systemwide test
-# def nt_sequence_list_to_file(nt_sequence_list, output_directory, output_file_name, type):
-#     handler = open(output_directory + "/" + output_file_name + "." + type, "w")
-#     comb_num = 1
-#
-#     if type == "fasta":
-#         for entry in nt_sequence_list:
-#             handler.write(">comb_" + str(comb_num))
-#             handler.write("\n")
-#             handler.write(entry)
-#             handler.write("\n")
-#             comb_num += 1
-#     elif type == "txt":
-#         for entry in nt_sequence_list:
-#             handler.write(entry)
-#             handler.write("\n")
-#             comb_num += 1
-#     handler.close()
 
-
-# bc1_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r1barcodes.fasta"
-# bc2_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r2barcodes.fasta"
-# bc3_path = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcodes_paper/r3barcodes.fasta"
-# output_directory = "/Users/manuel/OneDrive/SPLiT-seq/SPLiT-seq_suite/DGE_matrix_generation/metadata/barcode_reference"
-# nt_sequence_list_to_file(barcode_combinations, output_directory, "barcode_combinations", "txt")
 def bc_combinations_to_fasta(barcode_combinations, out_put_dir, out_filename):
     handler = open(out_put_dir + "/" + out_filename + ".fasta", 'w')
     chromosome = 0
@@ -82,5 +58,13 @@ def main(cmd_args):
     bc_combinations_to_fasta(barcode_combinations, out_put_dir, "barcode_combinations")
 
 
-if __name__ == "__main__":
-    main(get_cmd_args())
+# if __name__ == "__main__":
+#     main(get_cmd_args())
+
+#### just for one time use
+bc_path = "/Users/manuel/Desktop/10xv2_whitelist.txt"
+bcs = read_from_file(input_file=bc_path, file_type="txt")
+
+out_dir = "/Users/manuel/Desktop/"
+filename = "10X_bc_combinations"
+bc_combinations_to_fasta(barcode_combinations=bcs, out_put_dir=out_dir, out_filename=filename)
