@@ -91,6 +91,7 @@ def get_cmd_args():
     parser.add_argument('--gene_out_name')
     parser.add_argument('--accepted_gf')
     parser.add_argument('--cbc_comb')
+    parser.add_argument('--file_type')
     args = parser.parse_args()
     # args_dic = vars(args)
 
