@@ -1,0 +1,1 @@
+Number of reads in .bam file: 248415541
