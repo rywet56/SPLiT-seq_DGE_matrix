@@ -1,29 +1,3 @@
-# def get_gtf_content(gtf_in_path):
-#     # the output:
-#     # [[['1', 'araport11', 'gene', '3631', '5899', '.', '+', '.'], {'gene_id': 'AT1G01010', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding'}], [['1', 'araport11', 'transcript', '3631', '5899', '.', '+', '.'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding'}], [['1', 'araport11', 'exon', '3631', '3913', '.', '+', '.'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'exon_number': '1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding', 'exon_id': 'AT1G01010.1.exon1'}], [['1', 'araport11', 'CDS', '3760', '3913', '.', '+', '0'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'exon_number': '1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding', 'protein_id': 'AT1G01010.1'}], [['1', 'araport11', 'start_codon', '3760', '3762', '.', '+', '0'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'exon_number': '1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding'}]]
-#
-#     handler = open(gtf_in_path)
-#     gtf_content = handler.readlines()
-#
-#     gtf_lines = [""] * len(gtf_content)
-#     i = 0
-#     for read in gtf_content:
-#         first = read.split("\t")[0:8]  # --> ['1', 'araport11', 'gene', '3631', '5899', '.', '+
-#
-#         second = read.split("\t")[8].split(";")[:-1]
-#
-#         second_dic = {}
-#         for pair in second:
-#             split_pair = pair.strip().replace('"', "").split(' ')
-#             print(split_pair)
-#             second_dic[split_pair[0]] = split_pair[1]
-#
-#         gtf_lines[i] = [first, second_dic]
-#         i += 1
-#
-#     return gtf_lines
-
-
 def get_gtf_content(gtf_in_path):
     # the output:
     # [[['1', 'araport11', 'gene', '3631', '5899', '.', '+', '.'], {'gene_id': 'AT1G01010', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding'}], [['1', 'araport11', 'transcript', '3631', '5899', '.', '+', '.'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding'}], [['1', 'araport11', 'exon', '3631', '3913', '.', '+', '.'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'exon_number': '1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding', 'exon_id': 'AT1G01010.1.exon1'}], [['1', 'araport11', 'CDS', '3760', '3913', '.', '+', '0'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'exon_number': '1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding', 'protein_id': 'AT1G01010.1'}], [['1', 'araport11', 'start_codon', '3760', '3762', '.', '+', '0'], {'gene_id': 'AT1G01010', 'transcript_id': 'AT1G01010.1', 'exon_number': '1', 'gene_name': 'NAC001', 'gene_source': 'araport11', 'gene_biotype': 'protein_coding', 'transcript_source': 'araport11', 'transcript_biotype': 'protein_coding'}]]
@@ -80,7 +54,8 @@ gtf_content = get_gtf_content("/Users/manuel/Downloads/gtf_modification/Arabidop
 
 # for every line in the gtf file that has a tag "transcript_id" add a tag "transcript_name" that has the value of
 # "transcript_id"
-
+# for every line in the gtf file that has a tag "gene_id" add a tag "gene_name" that has the value of
+# "gene_id"
 for line in gtf_content:
     if is_tag(line, "transcript_id"):
         tag_value = get_tag_value(line, "transcript_id")
